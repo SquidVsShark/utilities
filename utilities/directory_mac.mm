@@ -1,3 +1,5 @@
+#ifdef __APPLE__
+
 #include "directory.hpp"
 #import <dirent.h>
 #import <Foundation/Foundation.h>
@@ -30,3 +32,6 @@ get_resource_path()
   
   
 } // namespace
+
+
+#endif
