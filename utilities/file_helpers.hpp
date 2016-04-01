@@ -6,15 +6,6 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#ifdef _WIN32 // note the underscore: without it, it's not msdn official!
-  
-#elif __unix__
-    
-#elif __linux__
-    
-#elif __APPLE__
-#endif
-
 
 namespace util {
 namespace file {

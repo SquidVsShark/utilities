@@ -2,8 +2,7 @@
 #define TIMER_INCLUDED_3B5C0BA4_B185_4918_A3B3_64FF42D0BD49
 
 
-namespace util
-{
+namespace util {
 
 
 using milliseconds = long long int;
