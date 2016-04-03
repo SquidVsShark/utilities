@@ -4,12 +4,13 @@
 
 #include <stdint.h>
 
-
 #if defined __APPLE__ || __linux__
   #define LOGGING_FUNC_STR __PRETTY_FUNCTION__
 #else
   #define LOGGING_FUNC_STR __FUNCTION__
 #endif
+
+#define LOGGING_FILE_NAME (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
 #define LOG_TODO(msg) util::log("[todo]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
 #define LOG_INFO(msg) util::log("[info]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
@@ -32,6 +33,7 @@ enum ENUM {
 
 void
 set_output(const uint32_t out);
+
 
 void
 log(const char *prefix,
