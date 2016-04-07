@@ -17,6 +17,7 @@
 #define LOG_WARNING(msg) util::log("[warn]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
 #define LOG_ERROR(msg) util::log("[err]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
 #define LOG_FATAL(msg) util::log("[fatal]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
+#define LOG_DEPRECATED util::log("[dep]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
 
 
 namespace util {
