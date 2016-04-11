@@ -230,5 +230,19 @@ convert_to_open_gl_mesh(obj_mesh mesh)
   return return_mesh;
 }
   
+  
+gl_mesh create_open_gl_mesh(const std::vector<float> &positions,
+                            const std::vector<float> &uvs,
+                            const std::vector<float> &normals,
+                            const std::vector<uint32_t> &index)
+{
+  obj_mesh mesh;
+  mesh.positions = positions;
+  mesh.normals = normals;
+  mesh.uvs = uvs;
+  mesh.index = index;
+  
+  return convert_to_open_gl_mesh(mesh);
+}
 
 } // namespace

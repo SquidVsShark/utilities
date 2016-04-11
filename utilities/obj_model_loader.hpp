@@ -39,12 +39,9 @@ struct gl_mesh
 //! Converts mesh into a combined, position,normal,uv format for gl.
 gl_mesh convert_to_open_gl_mesh(obj_mesh);
 
+//! Create a mesh from the info.
+gl_mesh create_open_gl_mesh(const std::vector<float> &positions, const std::vector<float> &uvs, const std::vector<float> &normals, const std::vector<uint32_t> &index);
   
-struct bounds
-{
-  float width, height;
-};
-
 
 } // namespace
 
