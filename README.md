@@ -1,1 +1,3 @@
 # utilities
+
+MIT
