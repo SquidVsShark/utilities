@@ -1,3 +1,5 @@
+#if defined __linux__ || defined __APPLE__
+
 #include "directory.hpp"
 #include <libproc.h>
 #include <unistd.h>
@@ -14,7 +16,7 @@ get_resource_path()
 }
 #endif
   
-  
+
 std::string
 get_executable_path()
 {
@@ -53,3 +55,6 @@ get_executable_path()
   
   
 } // namespace
+
+
+#endif

@@ -2,49 +2,46 @@
 #define LOGGING_INCLUDED_55713C67_54CB_4844_B789_EC11EFA4F9E6
 
 
-#include <string>
 #include <stdint.h>
-#include <iostream>
 
+#define LOGGING_FILE_NAME (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
-#define LOG_INFO(msg) std::cout << "[info] - " << msg << std::endl;
-#define LOG_WARNING(msg) std::cout << "[warning] - " << msg << std::endl;
-#define LOG_ERROR(msg) std::cout << "[error] - " << msg << std::endl;
-#define LOG_FATAL(msg) std::cout << "[fatal] - " << msg << std::endl;
+#if defined __APPLE__ || __linux__
+  #define LOGGING_FUNC_STR __PRETTY_FUNCTION__
+#else
+  #define LOGGING_FUNC_STR __FUNCTION__
+#endif
+
+#define LOG_TODO(msg) util::log("[todo]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
+#define LOG_INFO(msg) util::log("[info]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
+#define LOG_WARNING(msg) util::log("[warn]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
+#define LOG_ERROR(msg) util::log("[err]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
+#define LOG_FATAL(msg) util::log("[fatal]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
+#define LOG_DEPRECATED util::log("[dep]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
 
 
 namespace util {
 
-void          set_log_outputs(const uint32_t out_flags);
-void          set_log_types(const uint32_t msg_type_flags);
-std::string   get_buffer();
-
-void          log_error(const std::string &msg);
-void          log_warning(const std::string &msg);
-void          log_info(const std::string &msg);
-
-
-namespace log_msg_types {
-
-enum ENUM {
-  errors      = 1 << 0,
-  warnings    = 1 << 1,
-  info        = 1 << 2,
-};
-
-} // namespace
-
 
 namespace log_out {
-
 enum ENUM {
-  buffer      = 1 << 0,
-  console     = 1 << 1,
-  //file        = 1 << 2,
+
+  console = 1 << 0,
+
 };
+}
 
-} // namespace
 
+void
+set_output(const uint32_t out);
+
+
+void
+log(const char *prefix,
+    const char *msg,
+    const char *file,
+    const char *func,
+    const uint32_t line);
 
 } // util
 

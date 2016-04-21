@@ -4,15 +4,9 @@
 
 #include <string>
 #include <sys/stat.h>
-#include <unistd.h>
 
-#ifdef _WIN32 // note the underscore: without it, it's not msdn official!
-  
-#elif __unix__
-    
-#elif __linux__
-    
-#elif __APPLE__
+#ifndef _WIN32
+#include <unistd.h>
 #endif
 
 
@@ -23,8 +17,12 @@ namespace file {
 inline bool
 exists(const std::string &filename)
 {
+	#ifndef _WIN32
   struct stat buffer;   
   return (stat (filename.c_str(), &buffer) == 0);
+	#else
+	return true;
+	#endif
 }
 
 

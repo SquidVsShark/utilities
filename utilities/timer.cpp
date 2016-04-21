@@ -1,6 +1,6 @@
 #include "timer.hpp"
 
-#ifdef WIN32
+#ifdef _WIN32
 #include <tchar.h>
 #include <sys/types.h>
 #include <sys/timeb.h>
@@ -14,7 +14,7 @@ namespace
   util::milliseconds
   get_time()
   {
-  #ifdef WIN32
+  #ifdef _WIN32
   struct _timeb timebuffer;
   _ftime64_s(&timebuffer);
   return (timebuffer.time * 1000LL) + timebuffer.millitm;
