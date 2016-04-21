@@ -8,10 +8,17 @@
 #define likely(x)
 #define unlikely(x)
 #else
-#define likely(x)    __builtin_expect(!!(x), 1)
+#define likely(x)  __builtin_expect(!!(x), 1)
 #define unlikely(x)  __builtin_expect(!!(x), 0)
 #endif
 
+
+// Unreachable code
+#ifdef _MSC_VER
+#define UNREACHABLE __assume(0)
+#else
+#define UNREACHABLE __builtin_unreachable()
+#endif
 
 // Const and Pure
 
@@ -20,7 +27,7 @@
 #define PURE
 #else
 #define CONST __attribute__((const))
-#define PURE  __attribute__((pure))
+#define PURE __attribute__((pure))
 #endif
 
 
