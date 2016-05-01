@@ -9,6 +9,13 @@ namespace util {
 
 
 void
+memshuffle(void *data,
+           const size_t data_stride,
+           const size_t to_erase,
+           const size_t capacity);
+
+
+void
 memswap(void *ptr_1,
         const size_t size_of_ptr_1,
         void *ptr_2,
