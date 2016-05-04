@@ -2,4 +2,6 @@
 
 Collection of odds and ends.
 
-MIT
+### License 
+
+public domain

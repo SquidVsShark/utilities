@@ -40,4 +40,9 @@
 #endif
 
 
+// Unused
+
+#define UNUSED(x) void(x)
+
+
 #endif // inc guard
