@@ -14,6 +14,35 @@ namespace util {
 namespace file {
 
 
+/*
+  This will dump the contents of a file into a string.
+*/
+inline std::string
+get_contents_from_file(const std::string &filename)
+{
+  std::string output;
+
+  // Open the file in binary mode
+  FILE *f = fopen(filename.c_str(), "rb");
+
+  if(f)
+  {
+    // Determine the size of the file
+    fseek(f, 0, SEEK_END);
+    long len = ftell(f);
+    fseek(f, 0, SEEK_SET);
+    
+    // Load the entire file in one call
+    output.resize(len);
+    fread(&output[0], len, 1, f);
+    
+    fclose(f);
+  }
+
+  return output;
+}
+
+
 inline bool
 exists(const std::string &filename)
 {

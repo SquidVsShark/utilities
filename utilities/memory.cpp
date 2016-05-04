@@ -12,9 +12,9 @@ memshuffle(void *data,
            const size_t to_erase,
            const size_t capacity)
 {
-  memmove(data[data_stride * to_erase],
-          data[data_stride * (to_erase + 1)],
-          data[data_stride * (capacity - to_erase - 1)]);
+//  memmove(data[data_stride * to_erase],
+//          data[data_stride * (to_erase + 1)],
+//          data[data_stride * (capacity - to_erase - 1)]);
 }
 
 

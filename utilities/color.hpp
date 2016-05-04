@@ -41,15 +41,6 @@ inline float        color_get_channel_3f(const color get_color_channel);
 inline float        color_get_channel_4f(const color get_color_channel);
 
 
-enum class swizzle {
-  first_to_third,     // eg: RGBA -> BGRA
-  first_to_last,      // eg: RGBA -> ARGB
-  second_to_last,     // eg: ARGB -> ABGR
-};
-
-inline color        color_swizzle(const color swizzle_color, const swizzle swizzle_format); // not impl
-
-
 // ** IMPL ** //
 
 namespace detail
@@ -64,7 +55,6 @@ namespace detail
     return static_cast<float>(c) / 255.f;
   }
 }
-
 
 
 color
