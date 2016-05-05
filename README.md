@@ -1,4 +1,4 @@
-# utilities
+# Utilities
 
 Collection of odds and ends.
 
