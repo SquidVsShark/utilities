@@ -4,6 +4,7 @@ compiler: gcc
 
 before_script:
   - git clone https://github.com/coredat/utilities-test.git ../utilities-test
+  - sudo apt-get install premake4
 
 script: rake ci
 
@@ -19,7 +20,6 @@ addons:
             - llvm-toolchain-precise
             - ubuntu-toolchain-r-test
         packages:
-            - premake4
             - clang-3.7
             - g++-5
             - gcc-5
