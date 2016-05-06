@@ -19,6 +19,7 @@ addons:
             - llvm-toolchain-precise
             - ubuntu-toolchain-r-test
         packages:
+            - premake4
             - clang-3.7
             - g++-5
             - gcc-5
