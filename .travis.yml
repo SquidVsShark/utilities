@@ -3,7 +3,7 @@ language: cpp
 compiler: gcc
 
 before_script:
-  - git clone https://github.com/coredat/utilities-test.git utilities-test
+  - git clone https://github.com/coredat/utilities-test.git ../utilities-test
 
 script: rake ci
 
@@ -22,3 +22,4 @@ addons:
             - clang-3.7
             - g++-5
             - gcc-5
+            - premake4
