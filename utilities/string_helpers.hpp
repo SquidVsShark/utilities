@@ -26,6 +26,21 @@ get_dir_from_filepath(const std::string &filepath)
 }
 
 
+// Stip out the filepath and return the filename
+inline std::string
+get_filename_from_path(const std::string &filepath)
+{
+  auto loc = filepath.find_last_of("/");
+  
+  if(loc != std::string::npos)
+  {
+    return filepath.substr(loc + 1, filepath.size() - loc);
+  }
+  
+  return ""; // Found no seperator}
+}
+
+
 /*
   This will search a string for and #include "file" declerations
   and then search for those files from the given directories to search.
