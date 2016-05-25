@@ -13,6 +13,7 @@ namespace detail {
 
 struct memory_chunk_header
 {
+  char                 name[16]         = "none";
   memory_chunk_header  *next            = nullptr;
   memory_chunk_header  *prev            = nullptr;
   void*                start_of_chunk   = nullptr;
@@ -31,9 +32,11 @@ struct memory_pool
 
 struct memory_chunk
 {
-  void   *chunk_start = nullptr;
-  void   *chunk_16_byte_aligned_start = nullptr;
-  size_t bytes_in_chunk = 0;
+  const char  *name                        = nullptr;
+  void        *chunk_start                 = nullptr;
+  void        *chunk_16_byte_aligned_start = nullptr;
+  size_t      bytes_in_chunk               = 0;
+  bool        in_use                       = false;
 };
 
 
@@ -48,7 +51,9 @@ memory_pool_create(const size_t size_in_bytes);
  *  Get a chunk of useable memory from the pool.
  */
 memory_chunk
-memory_pool_get_chunk(memory_pool *pool, const size_t request_size);
+memory_pool_get_chunk(memory_pool *pool,
+                      const size_t request_size,
+                      const char *name = "none");
 
 
 /*!
@@ -57,6 +62,19 @@ memory_pool_get_chunk(memory_pool *pool, const size_t request_size);
 bool
 memory_pool_return_chunk(memory_pool *pool, memory_chunk *chunk);
 
+
+/*!
+ *  Number of chunks in the pool.
+ */
+size_t
+memory_pool_get_number_of_chunks(memory_pool *pool);
+
+
+/*!
+ *  Get chunk by index.
+ */
+memory_chunk
+memory_pool_get_chunk_by_index(memory_pool *pool, const size_t index);
 
 
 } // ns
