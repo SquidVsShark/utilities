@@ -17,8 +17,6 @@ memory_pool_create(const size_t number_of_bytes_to_reserve)
 
   if(pool.header)
   {
-    size_t size_of_buffer = number_of_bytes_to_reserve;
-    
     pool.header->prev           = nullptr;
     pool.header->next           = nullptr;
     pool.header->size_of_chunk  = number_of_bytes_to_reserve - sizeof(detail::memory_chunk_header);
