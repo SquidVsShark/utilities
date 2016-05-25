@@ -26,17 +26,17 @@ memswap(void *ptr_1,
 
 
 inline void*
-mem_offset(void *data,
+mem_offset(const void *data,
           const size_t offset)
 {
-  const uint8_t *byte = reinterpret_cast<uint8_t*>(data) + offset;
+  const uint8_t *byte = reinterpret_cast<const uint8_t*>(data) + offset;
 
   return (void*)byte;
 }
 
 
 inline void*
-mem_next_16byte_boundry(void *data)
+mem_next_16byte_boundry(const void *data)
 {
   const uintptr_t aligned = ((uintptr_t)data+15) & ~(uintptr_t)0x0F;
   return (void*)aligned;
