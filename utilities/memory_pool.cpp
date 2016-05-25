@@ -45,18 +45,18 @@ memory_pool_get_chunk(memory_pool *pool,
       {
         // Shrink this chunk down.
         const size_t size_of_chunk_to_split = this_header->size_of_chunk;
-        
-        this_header->size_of_chunk = request_size;
-        this_header->available = false;
+
         strlcpy(this_header->name, name, sizeof(this_header->name));
+        this_header->size_of_chunk = request_size;
+        this_header->available     = false;
 
         uint8_t *next_chunk_start = &reinterpret_cast<uint8_t*>(this_header->start_of_chunk)[this_header->size_of_chunk];
         detail::memory_chunk_header *next_chunk = reinterpret_cast<detail::memory_chunk_header*>(next_chunk_start);
         
         strlcpy(next_chunk->name, "none", sizeof(next_chunk->name));
-        next_chunk->prev = this_header;
-        next_chunk->available = true;
-        next_chunk->size_of_chunk = size_of_chunk_to_split - request_size - sizeof(detail::memory_chunk_header);
+        next_chunk->prev           = this_header;
+        next_chunk->available      = true;
+        next_chunk->size_of_chunk  = size_of_chunk_to_split - request_size - sizeof(detail::memory_chunk_header);
         next_chunk->start_of_chunk = (void*)(next_chunk_start + sizeof(detail::memory_chunk_header));
         
         this_header->next = next_chunk;
