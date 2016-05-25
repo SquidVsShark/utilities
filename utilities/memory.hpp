@@ -2,6 +2,7 @@
 #define MEMORY_INCLUDED_4CF26AAB_9030_449A_AD8E_509F4BC1FB71
 
 
+#include <stdint.h>
 #include <stddef.h>
 
 
@@ -22,6 +23,24 @@ memswap(void *ptr_1,
         const size_t size_of_ptr_2,
         void *swap_block,
         const size_t size_of_swap_block);
+
+
+inline void*
+mem_offset(void *data,
+          const size_t offset)
+{
+  const uint8_t *byte = reinterpret_cast<uint8_t*>(data) + offset;
+
+  return (void*)byte;
+}
+
+
+inline void*
+mem_next_16byte_boundry(void *data)
+{
+  const uintptr_t aligned = ((uintptr_t)data+15) & ~(uintptr_t)0x0F;
+  return (void*)aligned;
+}
 
 
 } // ns

@@ -1,4 +1,5 @@
 #include "memory_pool.hpp"
+#include "memory.hpp"
 #include <string.h>
 #include <assert.h>
 
@@ -54,6 +55,7 @@ memory_pool_get_chunk(memory_pool *pool,
         uint8_t *next_chunk_start = &reinterpret_cast<uint8_t*>(this_header->start_of_chunk)[this_header->size_of_chunk];
         detail::memory_chunk_header *next_chunk = reinterpret_cast<detail::memory_chunk_header*>(next_chunk_start);
         
+        strlcpy(next_chunk->name, "none", sizeof(next_chunk->name));
         next_chunk->prev = this_header;
         next_chunk->available = true;
         next_chunk->size_of_chunk = size_of_chunk_to_split - request_size - sizeof(detail::memory_chunk_header);
@@ -64,7 +66,8 @@ memory_pool_get_chunk(memory_pool *pool,
         chunk.name           = this_header->name;      
         chunk.chunk_start    = this_header->start_of_chunk;
         chunk.bytes_in_chunk = request_size;
-        
+        chunk.chunk_16_byte_aligned_start = util::mem_next_16byte_boundry(chunk.chunk_start);
+
         return chunk;
       }
     }
@@ -176,7 +179,9 @@ memory_pool_get_chunk_by_index(memory_pool *pool, const size_t index)
       return_chunk.name           = this_header->name;
       return_chunk.chunk_start    = this_header->start_of_chunk;
       return_chunk.bytes_in_chunk = this_header->size_of_chunk;
-      return_chunk.in_use         = !this_header->available;     
+      return_chunk.in_use         = !this_header->available;
+      
+      break;
     }
     else if(curr_i > index)
     {
