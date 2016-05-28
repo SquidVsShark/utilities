@@ -1,6 +1,6 @@
 #include "memory_pool.hpp"
 #include "memory.hpp"
-#include <string.h>
+#include <utilities/string_helpers.hpp>
 #include <assert.h>
 
 
@@ -55,6 +55,7 @@ memory_pool_get_chunk(memory_pool *pool,
         
         strlcpy(next_chunk->name, "none", sizeof(next_chunk->name));
         next_chunk->prev           = this_header;
+        next_chunk->next           = this_header->next;
         next_chunk->available      = true;
         next_chunk->size_of_chunk  = size_of_chunk_to_split - request_size - sizeof(detail::memory_chunk_header);
         next_chunk->start_of_chunk = (void*)(next_chunk_start + sizeof(detail::memory_chunk_header));
