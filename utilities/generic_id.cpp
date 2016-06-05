@@ -53,6 +53,11 @@ generic_id_search_binary(size_t *out_index,
     }
     else if(ids[position] > id_to_find)
     {
+      if(position == 0)
+      {
+        return false;
+      }
+      
       up = position - 1;
     }
   }
