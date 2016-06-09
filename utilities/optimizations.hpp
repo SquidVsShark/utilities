@@ -42,7 +42,7 @@
 
 // Unused
 
-#define UNUSED(x) void(x)
+#define UNUSED(x) (void)(x)
 
 
 #endif // inc guard
