@@ -9,6 +9,12 @@
 #include <unistd.h>
 #endif
 
+#ifdef _WIN32
+// Move this to a source file.
+// Windows.h is far to ugly to have it spreading around the code base.
+#include <windows.h>
+#endif
+
 
 namespace util {
 namespace file {
@@ -50,7 +56,7 @@ exists(const std::string &filename)
   struct stat buffer;   
   return (stat (filename.c_str(), &buffer) == 0);
 	#else
-	return true;
+  return PathFileExists(filename.c_str());
 	#endif
 }
 
