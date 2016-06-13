@@ -5,10 +5,10 @@ namespace util {
 
 
 bool
-generic_id_search_linearly(size_t *out_index,
-                           const generic_id id_to_search_for,
-                           const generic_id ids_to_search[],
-                           const size_t number_of_ids)
+generic_id_search_linear(size_t *out_index,
+                         const generic_id id_to_search_for,
+                         const generic_id ids_to_search[],
+                         const size_t number_of_ids)
 {
   for(size_t i = 0; i < number_of_ids; ++i)
   {
