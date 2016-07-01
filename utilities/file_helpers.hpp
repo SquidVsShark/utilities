@@ -13,6 +13,15 @@
 // Move this to a source file.
 // Windows.h is far to ugly to have it spreading around the code base.
 #include <windows.h>
+#include "Shlwapi.h"
+#endif
+
+
+// MAX FILEPATH SIZE
+#ifdef _WIN32
+#define MAX_FILE_PATH_SIZE 2048
+#else
+#define MAX_FILE_PATH_SIZE 2048
 #endif
 
 
@@ -56,7 +65,7 @@ exists(const std::string &filename)
   struct stat buffer;   
   return (stat (filename.c_str(), &buffer) == 0);
 	#else
-  return PathFileExists(filename.c_str());
+  return PathFileExistsA(filename.c_str());
 	#endif
 }
 
