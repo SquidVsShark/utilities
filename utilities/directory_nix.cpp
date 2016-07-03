@@ -3,34 +3,25 @@
 #include "directory.hpp"
 #include <libproc.h>
 #include <unistd.h>
+#include <cstring>
 
 
 namespace util {
+namespace dir {
 
 
-#ifndef __APPLE__ // This is defined in directory_mac.mm This is here if we are on another nix
-std::string
-get_resource_path()
+const char*
+exe_path()
 {
-  return get_executable_path();
-}
-#endif
+  static char buffer_exe_path[PROC_PIDPATHINFO_MAXSIZE] = "\0";
   
-
-std::string
-get_executable_path()
-{
-  static std::string path = "";
-  
-  if(path.empty())
+  if(strcmp(buffer_exe_path, "") == 0)
   {
-    char __exe_path_buffer[PROC_PIDPATHINFO_MAXSIZE];
-    
-    proc_pidpath(getpid(), __exe_path_buffer, sizeof(__exe_path_buffer));
+    proc_pidpath(getpid(), buffer_exe_path, sizeof(buffer_exe_path));
 
     size_t path_length = 0;
     for(size_t i = 0; i < PROC_PIDPATHINFO_MAXSIZE; i++) {
-      if(__exe_path_buffer[i] == '\0') {
+      if(buffer_exe_path[i] == '\0') {
         path_length = i;
         break;
       }
@@ -39,22 +30,30 @@ get_executable_path()
     size_t last_slash_index = 0;
     for(size_t i = 0; i < path_length; i++) {
       size_t r_i = (path_length - 1) - i;
-      if(__exe_path_buffer[r_i] == '/' || __exe_path_buffer[r_i] == '\\') {
+      if(buffer_exe_path[r_i] == '/' || buffer_exe_path[r_i] == '\\') {
         last_slash_index = r_i;
         break;
       }
     }
 
-    __exe_path_buffer[last_slash_index + 1] = '\0';
-    
-    path = __exe_path_buffer;
+    buffer_exe_path[last_slash_index + 1] = '\0';
   }
   
-  return path;
+  return buffer_exe_path;
 }
-  
-  
-} // namespace
+
+
+#ifndef __APPLE__ // This is defined in directory_mac.mm This is here if we are on another nix
+const char *
+resource_path()
+{
+  return exe_path();
+}
+#endif
+
+
+} // ns
+} // ns
 
 
 #endif
