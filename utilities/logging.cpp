@@ -1,5 +1,5 @@
 #include "logging.hpp"
-#include <iostream>
+#include <stdio.h>
 
 
 namespace
@@ -27,19 +27,19 @@ log(const char *prefix,
 {
   if(logging_outputs & util::log_out::console)
   {
-    if(prefix)        { std::cout << prefix << " "; }
-    if(file && line)  { std::cout << file << " : " << func << " : " << line << " "; }
+    if(prefix)        { printf("%s", prefix); }
+    if(file && line)  { printf("%s : %s : %d ", file, func, line); }
     
     if((prefix || (file || func)) && msg)
     {
-      std::cout << std::endl;;
+      printf("\n");
     }
     
-    if(msg) { std::cout << "> " << msg << " "; }
+    if(msg) { printf("> %s", msg); }
     
     if(prefix || (file && line) || msg)
     {
-      std::cout << std::endl;
+      printf("\n");
     }
   }
 }
