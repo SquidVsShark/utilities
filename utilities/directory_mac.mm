@@ -1,6 +1,7 @@
 #ifdef __APPLE__
 
 #include "directory.hpp"
+#include "file.hpp"
 #import <dirent.h>
 #import <Foundation/Foundation.h>
 
@@ -14,7 +15,7 @@ namespace dir {
 const char *
 resource_path()
 {
-  static char buffer_path[2048] = "\0";
+  static char buffer_path[MAX_FILE_PATH_SIZE] = "\0";
   
   if(strcmp(buffer_path, "") == 0)
   {
