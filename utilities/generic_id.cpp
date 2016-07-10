@@ -29,29 +29,24 @@ generic_id_search_binary(size_t *out_index,
                          const generic_id ids[],
                          const size_t number_of_ids)
 { 
-  uint32_t down = 0;
-  uint32_t up = number_of_ids - 1;
-  uint32_t position = 0;
+  size_t down = 0;
+  size_t up = number_of_ids - 1;
+  size_t position = 0;
   
-  uint32_t iterations = 0;
+//  size_t iterations = 0; // Uncomment for debugging.
 
-  while(up >= down)
+  while(true)
   {
-    iterations++;
+//    ++iterations;
     
     position = (down + up) >> 1;
+    generic_id id = ids[position];
     
-    if(ids[position] == id_to_find)
-    {
-      *out_index = position;
-      return true;
-    }
-    
-    if(ids[position] < id_to_find)
+    if(id < id_to_find)
     {
       down = position + 1;
     }
-    else if(ids[position] > id_to_find)
+    else if(id > id_to_find)
     {
       if(position == 0)
       {
@@ -59,6 +54,15 @@ generic_id_search_binary(size_t *out_index,
       }
       
       up = position - 1;
+    }
+    else if(id == id_to_find)
+    {
+      *out_index = position;
+      return true;
+    }
+    else if(up >= down)
+    {
+      return false;
     }
   }
   
