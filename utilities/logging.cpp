@@ -7,13 +7,13 @@
 
 namespace
 {
-  uint32_t logging_outputs = util::log::out::console;
+  uint32_t logging_outputs = util::logging::out::console;
   FILE *log_file = nullptr;
 }
 
 
 namespace util {
-namespace log {
+namespace logging {
 
 
 void
@@ -21,7 +21,7 @@ set_output(const uint32_t output)
 {
   logging_outputs = output;
   
-  if(logging_outputs & util::log::out::file)
+  if(logging_outputs & util::logging::out::file)
   {
     if(!log_file)
     {
@@ -61,7 +61,7 @@ log(const char *prefix,
     const char *func,
     const uint32_t line)
 {
-  if(logging_outputs & util::log::out::console)
+  if(logging_outputs & util::logging::out::console)
   {
     printf("\n-\n");
   
@@ -81,7 +81,7 @@ log(const char *prefix,
     }
   }
   
-  if(logging_outputs & util::log::out::file)
+  if(logging_outputs & util::logging::out::file)
   {
     if(log_file)
     {
