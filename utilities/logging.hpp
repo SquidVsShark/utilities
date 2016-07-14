@@ -3,8 +3,13 @@
 
 
 #include <stdint.h>
-#include <cstring> // needed for the macros
+#include <cstring> // needed for 'LOGGING_FILE_NAME' macro
 
+//#define LOG_NO_TODO
+//#define LOG_NO_WARNING
+//#define LOG_NO_ERROR
+//#define LOG_NO_FATAL
+//#define LOG_NO_DEPRECATED
 
 #define LOGGING_FILE_NAME (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
@@ -14,23 +19,53 @@
   #define LOGGING_FUNC_STR __FUNCTION__
 #endif
 
+#ifndef LOG_NO_TODO
 #define LOG_TODO(msg) util::logging::log("[todo]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
 #define LOG_TODO_ONCE(msg) { static int err_once = 0; if(!err_once) { err_once = 1; LOG_TODO(msg); } };
+#else
+#define LOG_TODO(msg)
+#define LOG_TODO_ONCE(msg)
+#endif
 
+#ifndef LOG_NO_INFO
 #define LOG_INFO(msg) util::logging::log("[info]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
 #define LOG_INFO_ONCE(msg) { static int err_once = 0; if(!err_once) { err_once = 1; LOG_INFO(msg); } };
+#else
+#define LOG_INFO(msg)
+#define LOG_INFO_ONCE(msg)
+#endif
 
+#ifndef LOG_NO_WARNING
 #define LOG_WARNING(msg) util::logging::log("[warn]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
 #define LOG_WARNING_ONCE(msg) { static int err_once = 0; if(!err_once) { err_once = 1; LOG_WARNING(msg); } };
+#else
+#define LOG_WARNING(msg)
+#define LOG_WARNING_ONCE(msg)
+#endif
 
+#ifndef LOG_NO_ERROR
 #define LOG_ERROR(msg) util::logging::log("[err]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
 #define LOG_ERROR_ONCE(msg) { static int err_once = 0; if(!err_once) { err_once = 1; LOG_ERROR(msg); } };
+#else
+#define LOG_ERROR(msg)
+#define LOG_ERROR_ONCE(msg)
+#endif
 
+#ifndef LOG_NO_FATAL
 #define LOG_FATAL(msg) util::logging::log("[fatal]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
 #define LOG_FATAL_ONCE(msg) { static int err_once = 0; if(!err_once) { err_once = 1; LOG_FATAL(msg); } };
+#else
+#define LOG_FATAL(msg)
+#define LOG_FATAL_ONCE(msg)
+#endif
 
+#ifndef LOG_NO_DEPRECATED
 #define LOG_DEPRECATED util::logging::log("[dep]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
 #define LOG_DEPRECATED_ONCE { static int err_once = 0; if(!err_once) { err_once = 1; LOG_DEPRECATED(msg); } };
+#else
+#define LOG_DEPRECATED
+#define LOG_DEPRECATED_ONCE
+#endif
 
 
 namespace util {
