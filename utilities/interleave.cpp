@@ -40,11 +40,17 @@ interleave_data(
     {
       const float *current_input = data[i];
       
+      if(!current_input)
+      {
+        continue;
+      }
+      
       const uint32_t index_start = i;
       
       for(uint32_t j = 0; j < input_size; ++j)
       {
         const uint32_t index = index_start + (j * data_stride);
+        
         output_data[index] = current_input[j];
       }
     }

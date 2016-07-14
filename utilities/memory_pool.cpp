@@ -147,7 +147,7 @@ memory_pool_get_number_of_chunks(memory_pool *pool)
 
   while(true)
   {
-    if(this_header->next)
+    if(this_header && this_header->next)
     {
       ++i;
       this_header = this_header->next;

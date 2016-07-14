@@ -78,13 +78,35 @@ log(const char *prefix,
   
   if(logging_outputs & util::logging::out::file)
   {
-    char buffer[2048];
+    constexpr size_t sizeof_buffer = 2048;
+    size_t buffer_used = 5; // start at 5 to account for trailing characters.    
+    
+    char buffer[sizeof_buffer];
     memset(buffer, 0, sizeof(buffer));
     
-    strcat(buffer, prefix);
-    strcat(buffer, "\n");
-    strcat(buffer, msg);
-    strcat(buffer, "\n-\n");
+    if(prefix)
+    {
+      buffer_used += strlen(prefix) + 1;
+      
+      if(buffer_used < sizeof_buffer)
+      {
+        strcat(buffer, prefix);
+        strcat(buffer, "\n");
+      }
+    }
+    
+    if(msg)
+    {
+      buffer_used += strlen(msg) + 1;
+      
+      if(buffer_used < sizeof_buffer)
+      {
+        strcat(buffer, msg);
+        strcat(buffer, "\n");
+      }
+    }
+    
+    strcat(buffer, "-\n");
     
     FILE *log_file = fopen(filepath, "a+");
 
