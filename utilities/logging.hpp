@@ -60,8 +60,8 @@
 #endif
 
 #ifndef LOG_NO_DEPRECATED
-#define LOG_DEPRECATED util::logging::log("[dep]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
-#define LOG_DEPRECATED_ONCE { static int err_once = 0; if(!err_once) { err_once = 1; LOG_DEPRECATED(msg); } };
+#define LOG_DEPRECATED(msg) util::logging::log("[dep]", msg, LOGGING_FILE_NAME, LOGGING_FUNC_STR, __LINE__);
+#define LOG_DEPRECATED_ONCE(msg) { static int err_once = 0; if(!err_once) { err_once = 1; LOG_DEPRECATED(msg); } };
 #else
 #define LOG_DEPRECATED
 #define LOG_DEPRECATED_ONCE
