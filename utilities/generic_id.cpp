@@ -33,20 +33,20 @@ generic_id_search_binary(size_t *out_index,
   size_t up = number_of_ids - 1;
   size_t position = 0;
   
-//  size_t iterations = 0; // Uncomment for debugging.
+  #ifndef NDEBUG
+  size_t iterations = 0;
+  #endif
 
   while(true)
   {
-//    ++iterations;
+    #ifndef NDEBUG
+    ++iterations;
+    #endif
     
     position = (down + up) >> 1;
     generic_id id = ids[position];
     
-    if(id < id_to_find)
-    {
-      down = position + 1;
-    }
-    else if(id > id_to_find)
+    if(id > id_to_find)
     {
       if(position == 0)
       {
@@ -54,6 +54,10 @@ generic_id_search_binary(size_t *out_index,
       }
       
       up = position - 1;
+    }
+    else if(id < id_to_find)
+    {
+      down = position + 1;
     }
     else if(id == id_to_find)
     {
