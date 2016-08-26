@@ -37,7 +37,7 @@ generic_id_search_binary(size_t *out_index,
   size_t iterations = 0;
   #endif
 
-  while(true)
+  while(up >= down)
   {
     #ifndef NDEBUG
     ++iterations;
@@ -54,19 +54,21 @@ generic_id_search_binary(size_t *out_index,
       }
       
       up = position - 1;
+      continue;
     }
+//    else if()
+//    {
+//      return false;
+//    }
     else if(id < id_to_find)
     {
       down = position + 1;
+      continue;
     }
     else if(id == id_to_find)
     {
       *out_index = position;
       return true;
-    }
-    else if(up >= down)
-    {
-      return false;
     }
   }
   
