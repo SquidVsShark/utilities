@@ -89,7 +89,7 @@ hash_include_string(const std::string &string_to_search, const std::vector<std::
 } // ns
 
 
-#ifdef _WIN32
+#ifdef _WIN32 || GNU
 
 /*	$OpenBSD: strlcpy.c,v 1.11 2006/05/05 15:27:38 millert Exp $	*/
 
