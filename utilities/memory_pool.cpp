@@ -1,7 +1,7 @@
 #include "memory_pool.hpp"
 #include "memory.hpp"
 #include <utilities/string_helpers.hpp>
-#include <cstring>
+#include <string.h>
 #include <assert.h>
 
 
