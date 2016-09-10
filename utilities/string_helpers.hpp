@@ -89,7 +89,7 @@ hash_include_string(const std::string &string_to_search, const std::vector<std::
 } // ns
 
 
-#if defined(_WIN32) || defined(__GNUC__)
+#if defined(_MSC_VER) || defined(__GNUC__)
 
 /*	$OpenBSD: strlcpy.c,v 1.11 2006/05/05 15:27:38 millert Exp $	*/
 
