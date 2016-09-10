@@ -20,7 +20,7 @@ namespace
   return (timebuffer.time * 1000LL) + timebuffer.millitm;
   #else
   struct timeval tv;
-  gettimeofday(&tv, NULL);
+  gettimeofday(&tv, 0);
   return (tv.tv_sec * 1000LL) + (tv.tv_usec / 1000LL);
   #endif
   }
