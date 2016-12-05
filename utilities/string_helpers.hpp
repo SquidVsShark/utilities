@@ -7,10 +7,38 @@
 #include <iterator>
 #include <string.h>
 #include <stddef.h>
+#include <string.h>
 #include "file.hpp"
 
 
 namespace util {
+
+
+// Get filename from path
+inline void
+filename_from_path(const char *path,
+                   char *out_filename,
+                   const size_t max_output = 256)
+{
+  const size_t path_length = strlen(path);
+  size_t last_slash = 0;
+  
+  for(size_t c = 0; c < path_length; ++c)
+  {
+    if(path[c] == '/')
+    {
+      last_slash = c;
+    }
+  }
+  
+  if(last_slash)
+  {
+    const size_t to_end_of_string = (path_length - last_slash - 1);
+    const size_t length_to_copy = to_end_of_string > max_output ? max_output : to_end_of_string;
+    
+    memcpy(out_filename, &path[last_slash + 1], length_to_copy);
+  }
+}
 
 
 // Strip out the filename in a path.
