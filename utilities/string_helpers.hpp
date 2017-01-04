@@ -115,15 +115,15 @@ hash_include_string(const std::string &string_to_search, const std::vector<std::
 }
 
 
-void
+inline void
 get_text_between_tags(const char *start_tag,
                       const char *end_tag,
                       const char *text,
                       char *buffer,
                       const size_t sizeof_buffer)
 {
-  char *start = strstr(text, start_tag);
-  char *end = strstr(&text[strlen(start_tag)], end_tag);
+  char *start = strstr(text, start_tag) + strlen(start_tag);
+  char *end = strstr(text, end_tag);
   
   size_t size_of_target = end - start;
   
