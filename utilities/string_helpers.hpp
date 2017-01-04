@@ -114,7 +114,28 @@ hash_include_string(const std::string &string_to_search, const std::vector<std::
   return result;
 }
 
+
+void
+get_text_between_tags(const char *start_tag,
+                      const char *end_tag,
+                      const char *text,
+                      char *buffer,
+                      const size_t sizeof_buffer)
+{
+  char *start = strstr(text, start_tag);
+  char *end = strstr(&text[strlen(start_tag)], end_tag);
+  
+  size_t size_of_target = end - start;
+  
+  if(size_of_target < sizeof_buffer)
+  {
+    memcpy(buffer, start, end - start);
+  }
+}
+
+
 } // ns
+
 
 
 #if defined(_MSC_VER) || defined(__GNUC__)
