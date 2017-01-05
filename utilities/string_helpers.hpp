@@ -123,7 +123,7 @@ get_text_between_tags(const char *start_tag,
                       const size_t sizeof_buffer)
 {
   char *start = strstr(text, start_tag) + strlen(start_tag);
-  char *end = strstr(text, end_tag);
+  char *end = strstr(start, end_tag);
   
   size_t size_of_target = end - start;
   
