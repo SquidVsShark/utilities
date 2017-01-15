@@ -3,6 +3,7 @@
 
 
 #include <stddef.h>
+#include <stdlib.h>
 #include "alloc.hpp"
 
 
@@ -36,10 +37,11 @@ void*   data(buffer *buf);
 
 #endif
 
-#ifdef BUFFER_IMPL
+#ifdef UTIL_BUFFER_IMPL
 
 #include <stddef.h>
 #include <stdint.h>
+#include <string.h>
 
 #include "alloc.hpp"
 
