@@ -1,9 +1,14 @@
 #if defined __linux__ || defined __APPLE__
 
 #include "directory.hpp"
-#include <libproc.h>
 #include <unistd.h>
 #include <cstring>
+
+#ifdef __APPLE__
+#include <libproc.h>
+#else
+#include <libgen.h>
+#endif
 
 
 namespace util {
@@ -13,8 +18,9 @@ namespace dir {
 const char*
 exe_path()
 {
+  #ifdef __APPLE__
   static char buffer_exe_path[PROC_PIDPATHINFO_MAXSIZE] = "\0";
-  
+
   if(strcmp(buffer_exe_path, "") == 0)
   {
     proc_pidpath(getpid(), buffer_exe_path, sizeof(buffer_exe_path));
@@ -38,8 +44,26 @@ exe_path()
 
     buffer_exe_path[last_slash_index + 1] = '\0';
   }
-  
+
   return buffer_exe_path;
+  #else
+
+  static char buffer_exe_path[1024] = "\0";
+
+  if(strcmp(buffer_exe_path, "") == 0)
+  {
+    char buffer[1024];
+    memset(buffer_exe_path, 0, sizeof(buffer_exe_path));
+    unsigned int count = readlink("/prop/self/exe", buffer, 1024);
+
+    if(count != -1)
+    {
+      const char *path = dirname(buffer);
+      strcpy(buffer_exe_path, path);
+    }
+  }
+
+  #endif
 }
 
 

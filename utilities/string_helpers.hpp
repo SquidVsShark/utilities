@@ -22,7 +22,7 @@ filename_from_path(const char *path,
 {
   const size_t path_length = strlen(path);
   size_t last_slash = 0;
-  
+
   for(size_t c = 0; c < path_length; ++c)
   {
     if(path[c] == '/')
@@ -30,12 +30,12 @@ filename_from_path(const char *path,
       last_slash = c;
     }
   }
-  
+
   if(last_slash)
   {
     const size_t to_end_of_string = (path_length - last_slash - 1);
     const size_t length_to_copy = to_end_of_string > max_output ? max_output : to_end_of_string;
-    
+
     memcpy(out_filename, &path[last_slash + 1], length_to_copy);
   }
 }
@@ -46,12 +46,12 @@ inline std::string
 get_dir_from_filepath(const std::string &filepath)
 {
   auto loc = filepath.find_last_of("/");
-  
+
   if(loc != std::string::npos)
   {
     return filepath.substr(0, loc + 1);
   }
-  
+
   return ""; // Found no seperator
 }
 
@@ -61,12 +61,12 @@ inline std::string
 get_filename_from_path(const std::string &filepath)
 {
   auto loc = filepath.find_last_of("/");
-  
+
   if(loc != std::string::npos)
   {
     return filepath.substr(loc + 1, filepath.size() - loc);
   }
-  
+
   return ""; // Found no seperator}
 }
 
@@ -99,7 +99,7 @@ hash_include_string(const std::string &string_to_search, const std::vector<std::
       const std::string path = dir + filename;
       std::string contents;
       contents.resize(file::bytes_in_file(path.c_str()));
-      
+
       file::get_contents_from_file(path.c_str(), &contents[0], contents.size());
       const std::size_t find      = result.find(include);
 
@@ -122,11 +122,11 @@ get_text_between_tags(const char *start_tag,
                       char *buffer,
                       const size_t sizeof_buffer)
 {
-  char *start = strstr(text, start_tag) + strlen(start_tag);
-  char *end = strstr(start, end_tag);
-  
+  const char *start = strstr(text, start_tag) + strlen(start_tag);
+  const char *end = strstr(start, end_tag);
+
   size_t size_of_target = end - start;
-  
+
   if(size_of_target < sizeof_buffer)
   {
     memcpy(buffer, start, end - start);
