@@ -3,12 +3,12 @@
 
 
 // This is slightly pedentic I know
-#ifdef _WIN32
-#include <atomic>
-using std::atomic_bool;
-#else
+#ifdef __APPLE__
 #include <stdatomic.h>
 #endif
+#else
+#include <atomic>
+using std::atomic_bool;
 
 
 #endif // inc guard
