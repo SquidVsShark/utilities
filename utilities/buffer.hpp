@@ -92,10 +92,10 @@ init(data *buf,
     buf->allocate_fn    = alloc;
     buf->reallocate_fn  = resize;
     buf->destroy_fn     = free;
-    
+
     return true;
   }
-  
+
   return false;
 }
 
@@ -121,7 +121,7 @@ destroy(data *buf)
 bool
 empty(const data *buf)
 {
-  return !buf->bytes_used; 
+  return !buf->bytes_used;
 }
 
 
@@ -159,9 +159,9 @@ push(data *buf)
   {
     const size_t buf_size = buf->bytes_used;
 
-    if(buf->bytes_used == buf->byte_count)
+    if(buf->bytes_used >= buf->byte_count)
     {
-      reserve(buf, size(buf) << 1);  
+      reserve(buf, size(buf) << 1);
     }
 
     buf->bytes_used += buf->byte_stride;
@@ -191,7 +191,7 @@ insert(data *buf, const size_t index)
 {
   if(size(buf) >= capacity(buf))
   {
-    resize(buf, size(buf) << 1);   
+    resize(buf, size(buf) << 1);
   }
 
   if(buf->data)
@@ -224,7 +224,7 @@ erase(data *buf, const size_t index)
     const size_t index_to_erase = index * buf->byte_stride;
     const size_t start_index    = index_to_erase + buf->byte_stride;
     const size_t size_to_end    = buf->bytes_used - index_to_erase - buf->byte_stride;
- 
+
     memmove(&buf->data[index_to_erase], &buf->data[start_index], size_to_end);
   }
 }
@@ -240,7 +240,7 @@ bytes(data *buf)
 void*
 last(data *buf)
 {
-  return (void*)&buf->data[buf->bytes_used - buf->byte_stride];
+  return buf->bytes_used ? (void*)&buf->data[buf->bytes_used - buf->byte_stride] : nullptr;
 }
 
 
