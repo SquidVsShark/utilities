@@ -240,7 +240,7 @@ bytes(data *buf)
 void*
 last(data *buf)
 {
-  return buf->data[buf->bytes_used - buf->byte_stride];
+  return (void*)&buf->data[buf->bytes_used - buf->byte_stride];
 }
 
 
