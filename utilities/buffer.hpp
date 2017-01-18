@@ -158,12 +158,12 @@ push(data *buf)
 {
   if(buf->data)
   {
-    const size_t buf_size = buf->bytes_used;
-
     if(buf->bytes_used >= buf->byte_count)
     {
       reserve(buf, size(buf) << 1);
     }
+    
+    memset(&buf->data[buf->bytes_used], 0, buf->byte_stride);
 
     buf->bytes_used += buf->byte_stride;
   }

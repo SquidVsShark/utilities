@@ -30,7 +30,10 @@ namespace id {
 
 
 bool
-linear_search(const uint32_t id_to_find, const uint32_t ids[], const size_t id_count, size_t *out_index)
+linear_search(const uint32_t id_to_find,
+              const uint32_t ids[],
+              const size_t id_count,
+              size_t *out_index)
 {
   for(size_t i = 0; i < id_count; ++i)
   {
@@ -51,7 +54,10 @@ linear_search(const uint32_t id_to_find, const uint32_t ids[], const size_t id_c
 
 
 bool
-linear_search(const uint64_t id_to_find, const uint64_t ids[], const size_t id_count, size_t *out_index)
+linear_search(const uint64_t id_to_find,
+              const uint64_t ids[],
+              const size_t id_count,
+              size_t *out_index)
 {
   for(size_t i = 0; i < id_count; ++i)
   {
