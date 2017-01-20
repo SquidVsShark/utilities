@@ -46,6 +46,7 @@ void    clear(data *buf);
 void    erase(data *buf, const size_t index);
 void*   bytes(data *buf);
 void*   last(data *buf);
+void*   at(data *buf, const size_t index);
 
 
 } // ns
@@ -242,6 +243,13 @@ void*
 last(data *buf)
 {
   return buf->bytes_used ? (void*)&buf->data[buf->bytes_used - buf->byte_stride] : nullptr;
+}
+
+
+void*
+at(data *buf, const size_t i)
+{
+  return &buf->data[buf->byte_stride * i];
 }
 
 
