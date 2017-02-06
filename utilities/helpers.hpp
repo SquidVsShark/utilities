@@ -10,7 +10,7 @@
 // -------------------------------------------------------------- [ Unused ] --
 
 
-#define UNUSED(x) (void)(x)
+#define UTIL_UNUSED(x) (void)(x)
 
 
 #endif // inc guard

@@ -13,7 +13,7 @@
 // ---------------------------------------------------------- [ Bit Config ] --
 
 
-#define BITS_INLINE inline
+#define UTIL_BITS_INLINE inline
 
 
 // ----------------------------------------------------------- [ Bit Macro ] --
@@ -29,14 +29,14 @@ namespace util {
 namespace bits {
 
 
-BITS_INLINE uint32_t
+UTIL_BITS_INLINE uint32_t
 upper(const uint64_t i)
 {
   return i & 0xffffffff;
 }
 
 
-BITS_INLINE uint32_t
+UTIL_BITS_INLINE uint32_t
 lower(const uint64_t i)
 {
   return i >> 32;
@@ -54,7 +54,7 @@ namespace util {
 namespace bits {
 
 
-BITS_INLINE uint64_t
+UTIL_BITS_INLINE uint64_t
 pack(const uint32_t a, const uint32_t b)
 {
   return ((uint64_t)a) << 32 | b;

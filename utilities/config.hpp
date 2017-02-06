@@ -14,8 +14,8 @@
 #define UTIL_PLATFORM_MAC
 #define UTIL_PLATFORM_NIX
 #elif defined(__linux__)
-#define UTIL_PLATFORM_NIX
 #define UTIL_PLATFORM_LINUX
+#define UTIL_PLATFORM_NIX
 #elif defined(_WIN32)
 #define UTIL_PLATFORM_WIN
 #elif defined(__MINGW32__)

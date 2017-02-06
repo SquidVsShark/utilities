@@ -27,13 +27,13 @@
 
 
 namespace util {
-namespace algin {
+namespace align {
 
 
 ALIGN_INLINE uintptr_t
 get_boundry_16(const uintptr_t addr)
 {
-  const uintptr_t addr_padded += addr + 15;
+  const uintptr_t addr_padded = addr + 15;
   return addr_padded &~ 0x0F;
 }
 

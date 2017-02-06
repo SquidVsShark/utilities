@@ -32,7 +32,7 @@ linear_search(const uint32_t id_to_find,
 #endif // inc guard
 
 
-#ifdef UTIL_ID32_IMPL
+#ifdef UTIL_KEY_IMPL
 
 
 // ------------------------------------------------------------ [ Key Impl ] --

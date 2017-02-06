@@ -9,7 +9,7 @@
 
   Warning
   --
-  Will mess up on PPC machines.
+  PPC machines will reverse things.
 */
 
 #ifndef INCLUDED_7C3DBCF8_82CC_4FFC_BE00_779FCC633E11
@@ -22,7 +22,7 @@
 // -------------------------------------------------------- [ Color Config ] --
 
 
-#define COLOR_INLINE inline
+#define UTIL_COLOR_INLINE inline
 
 
 // ----------------------------------------------------- [ Color Interface ] --
@@ -35,29 +35,27 @@ namespace color {
 using color = uint32_t;
 
 
-COLOR_INLINE color        init(const uint32_t hex_components = 0xC1C2C3C4);
-COLOR_INLINE color        init(const uint8_t c1,
-                                     const uint8_t c2,
-                                     const uint8_t c3,
-                                     const uint8_t c4);
-COLOR_INLINE color        init(const float c1,
-                                     const float c2,
-                                     const float c3,
-                                     const float c4);
-COLOR_INLINE color        init(const float channels[],
-                                     const uint32_t size);
-COLOR_INLINE color        init(const uint8_t channels[],
-                                     const uint32_t size);
+UTIL_COLOR_INLINE color        init(const uint32_t hex_components = 0xC1C2C3C4);
+UTIL_COLOR_INLINE color        init(const uint8_t c1,
+                                    const uint8_t c2,
+                                    const uint8_t c3,
+                                    const uint8_t c4);
+UTIL_COLOR_INLINE color        init(const float c1,
+                                    const float c2,
+                                    const float c3,
+                                    const float c4);
+UTIL_COLOR_INLINE color        init(const float channels[4]);
+UTIL_COLOR_INLINE color        init(const uint8_t channels[4]);
 
-COLOR_INLINE uint8_t      get_channel_1i(const color get_channel);
-COLOR_INLINE uint8_t      get_channel_2i(const color get_channel);
-COLOR_INLINE uint8_t      get_channel_3i(const color get_channel);
-COLOR_INLINE uint8_t      get_channel_4i(const color get_channel);
+UTIL_COLOR_INLINE uint8_t      get_channel_1i(const color get_channel);
+UTIL_COLOR_INLINE uint8_t      get_channel_2i(const color get_channel);
+UTIL_COLOR_INLINE uint8_t      get_channel_3i(const color get_channel);
+UTIL_COLOR_INLINE uint8_t      get_channel_4i(const color get_channel);
 
-COLOR_INLINE float        get_channel_1f(const color get_channel);
-COLOR_INLINE float        get_channel_2f(const color get_channel);
-COLOR_INLINE float        get_channel_3f(const color get_channel);
-COLOR_INLINE float        get_channel_4f(const color get_channel);
+UTIL_COLOR_INLINE float        get_channel_1f(const color get_channel);
+UTIL_COLOR_INLINE float        get_channel_2f(const color get_channel);
+UTIL_COLOR_INLINE float        get_channel_3f(const color get_channel);
+UTIL_COLOR_INLINE float        get_channel_4f(const color get_channel);
 
 
 } // ns
@@ -118,16 +116,16 @@ init(const float c1, const float c2, const float c3, const float c4)
 
 
 color
-init(const float channels[], const uint32_t size)
+init(const float channels[])
 {
-  return init(channels[0], channels[1], channels[2], channels[4]);
+  return init(channels[0], channels[1], channels[2], channels[3]);
 }
 
 
 color
-init(const uint8_t channels[], const uint32_t size)
+init(const uint8_t channels[])
 {
-  return init(channels[0], channels[1], channels[2], channels[4]);
+  return init(channels[0], channels[1], channels[2], channels[3]);
 }
 
 

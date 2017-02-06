@@ -19,7 +19,7 @@
 // ------------------------------------------------------- [ Timer Config ] --
 
 
-#define TIMER_INLINE inline
+#define UTIL_TIMER_INLINE inline
 
 
 // ----------------------------------------------------- [ Timer Interface ] --
@@ -32,15 +32,15 @@ namespace timer {
 using milliseconds = long long int;
 
 
-TIMER_INLINE milliseconds
+UTIL_TIMER_INLINE milliseconds
 get_current_time();
 
 
-TIMER_INLINE milliseconds
+UTIL_TIMER_INLINE milliseconds
 get_difference(const milliseconds &start, const milliseconds &end);
 
 
-TIMER_INLINE float
+UTIL_TIMER_INLINE float
 to_seconds(const milliseconds &milli);
 
 

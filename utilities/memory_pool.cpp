@@ -1,7 +1,7 @@
 #include "memory_pool.hpp"
-#include "memory.hpp"
-#include <utilities/string_helpers.hpp>
-#include "string_helpers.hpp"
+// #include "memory.hpp"
+#include "string.hpp"
+#include "alignment.hpp"
 #include <assert.h>
 
 
@@ -13,7 +13,7 @@ memory_pool_create(const size_t number_of_bytes_to_reserve)
 {
   memory_pool pool;
   uint8_t *allocated = new uint8_t[number_of_bytes_to_reserve];
-  
+
   pool.header = reinterpret_cast<detail::memory_chunk_header*>(allocated);
 
   if(pool.header)
@@ -53,20 +53,20 @@ memory_pool_get_chunk(memory_pool *pool,
 
         uint8_t *next_chunk_start = &reinterpret_cast<uint8_t*>(this_header->start_of_chunk)[this_header->size_of_chunk];
         detail::memory_chunk_header *next_chunk = reinterpret_cast<detail::memory_chunk_header*>(next_chunk_start);
-        
+
         strlcpy(next_chunk->name, "none", sizeof(next_chunk->name));
         next_chunk->prev           = this_header;
         next_chunk->next           = this_header->next;
         next_chunk->available      = true;
         next_chunk->size_of_chunk  = size_of_chunk_to_split - request_size - sizeof(detail::memory_chunk_header);
         next_chunk->start_of_chunk = (void*)(next_chunk_start + sizeof(detail::memory_chunk_header));
-        
+
         this_header->next = next_chunk;
-  
-        chunk.name           = this_header->name;      
+
+        chunk.name           = this_header->name;
         chunk.chunk_start    = this_header->start_of_chunk;
         chunk.bytes_in_chunk = request_size;
-        chunk.chunk_16_byte_aligned_start = util::mem_next_16byte_boundry(chunk.chunk_start);
+        chunk.chunk_16_byte_aligned_start = (void*)util::align::get_boundry_16((uintptr_t)chunk.chunk_start);
 
         return chunk;
       }
@@ -80,10 +80,10 @@ memory_pool_get_chunk(memory_pool *pool,
     // No more chunks to search, no memory avail :(
     else
     {
-      return memory_chunk(); 
+      return memory_chunk();
     }
   }
-  
+
   return chunk;
 }
 
@@ -93,19 +93,19 @@ memory_pool_return_chunk(memory_pool *pool, memory_chunk *chunk)
 {
   // Find the chunk that has a matching start/size
   detail::memory_chunk_header *header = pool->header;
-  
+
   while(header)
   {
     if(header->size_of_chunk == chunk->bytes_in_chunk && header->start_of_chunk == chunk->chunk_start)
     {
       header->available = true;
-      strlcpy(header->name, "none", sizeof(header->name)); 
+      strlcpy(header->name, "none", sizeof(header->name));
 
       // We need to check if we should merge this chunk
       // with the previous or next chunk.
       detail::memory_chunk_header *prev = header->prev;
       detail::memory_chunk_header *next = header->next;
-      
+
       // Merge chunk with previous.
       if(prev && prev->available)
       {
@@ -114,7 +114,7 @@ memory_pool_return_chunk(memory_pool *pool, memory_chunk *chunk)
         header = prev;
         prev = nullptr;
       }
-      
+
       // Merge chunk with next
       if(next && next->available)
       {
@@ -124,7 +124,7 @@ memory_pool_return_chunk(memory_pool *pool, memory_chunk *chunk)
 
       return true;
     }
-  
+
     header = header->next;
   }
 
@@ -159,7 +159,7 @@ memory_pool_get_number_of_chunks(memory_pool *pool)
     }
   }
 
-  return i; 
+  return i;
 }
 
 
@@ -180,7 +180,7 @@ memory_pool_get_chunk_by_index(memory_pool *pool, const size_t index)
       return_chunk.chunk_start    = this_header->start_of_chunk;
       return_chunk.bytes_in_chunk = this_header->size_of_chunk;
       return_chunk.in_use         = !this_header->available;
-      
+
       break;
     }
     else if(curr_i > index)
@@ -193,12 +193,12 @@ memory_pool_get_chunk_by_index(memory_pool *pool, const size_t index)
     if(this_header->next)
     {
       ++curr_i;
-      this_header = this_header->next; 
+      this_header = this_header->next;
     }
     else
     {
       break;
-    }  
+    }
   }
 
   return return_chunk;
