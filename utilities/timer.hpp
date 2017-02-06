@@ -7,7 +7,6 @@
 #define TIMER_INCLUDED_3B5C0BA4_B185_4918_A3B3_64FF42D0BD49
 
 
-
 #ifdef _WIN32
 #include <tchar.h>
 #include <sys/types.h>
