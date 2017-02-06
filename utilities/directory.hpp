@@ -1,5 +1,13 @@
+/*
+  Directory
+  --
+  Executable directory path.
+*/
 #ifndef DIRECTORY_INCLUDED_5551C33B_D835_42D2_99FF_661889A068A0
 #define DIRECTORY_INCLUDED_5551C33B_D835_42D2_99FF_661889A068A0
+
+
+// ------------------------------------------------------- [ Dir Interface ] --
 
 
 namespace util {
@@ -26,4 +34,14 @@ exe_path();
 } // ns
 
 
-#endif // include guard
+#endif // inc guard
+
+
+#ifdef UTIL_DIR_IMPL
+
+// ------------------------------------------------------- [ Dir Interface ] --
+
+
+
+
+#endif // impl guard

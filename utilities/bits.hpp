@@ -1,38 +1,68 @@
+/*
+  Bits
+  --
+  Anything todo with bits and bit packing.
+*/
 #ifndef BITS_INCLUDED_CBA564C2_BA9A_4D4E_A0B8_BCAF9ECE089B
 #define BITS_INCLUDED_CBA564C2_BA9A_4D4E_A0B8_BCAF9ECE089B
-
-
-#define BIT(n) 1 << n
 
 
 #include <stdint.h>
 
 
+// ---------------------------------------------------------- [ Bit Config ] --
+
+
+#define BITS_INLINE inline
+
+
+// ----------------------------------------------------------- [ Bit Macro ] --
+
+
+#define BIT(n) 1 << n
+
+
+// ------------------------------------------------------ [ Bit Un-Packing ] --
+
+
 namespace util {
+namespace bits {
 
 
-constexpr uint32_t
-bits_upper(const uint64_t i)
+BITS_INLINE uint32_t
+upper(const uint64_t i)
 {
   return i & 0xffffffff;
 }
 
 
-constexpr uint32_t
-bits_lower(const uint64_t i)
+BITS_INLINE uint32_t
+lower(const uint64_t i)
 {
   return i >> 32;
 }
 
 
-constexpr uint64_t
-bits_pack(const uint32_t a, const uint32_t b)
+} // ns
+} // ns
+
+
+// --------------------------------------------------------- [ Bit Packing ] --
+
+
+namespace util {
+namespace bits {
+
+
+BITS_INLINE uint64_t
+pack(const uint32_t a, const uint32_t b)
 {
   return ((uint64_t)a) << 32 | b;
 }
 
 
 } // ns
+} // ns
 
 
-#endif // include guard
+#endif // inc guard

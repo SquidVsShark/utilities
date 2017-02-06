@@ -1,3 +1,13 @@
+/*
+  Buffer
+  --
+  A generic memory buffer. This handles allocation requests.
+
+  Warning
+  --
+  This is a typeless buffer it can lead to some unexpected things. Consider
+  using a vector.
+*/
 #ifndef BUFFER_INCLUDED_7FE56F1E_1D98_4770_B828_7CCB3764E0F9
 #define BUFFER_INCLUDED_7FE56F1E_1D98_4770_B828_7CCB3764E0F9
 

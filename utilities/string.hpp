@@ -1,3 +1,8 @@
+/*
+  String
+  --
+  String helpers
+*/
 #ifndef STRING_HELPERS_INCLUDED_CC0C05E9_7D4D_4A69_B002_6E59BDC031B9
 #define STRING_HELPERS_INCLUDED_CC0C05E9_7D4D_4A69_B002_6E59BDC031B9
 
@@ -53,21 +58,6 @@ get_dir_from_filepath(const std::string &filepath)
   }
 
   return ""; // Found no seperator
-}
-
-
-// Stip out the filepath and return the filename
-inline std::string
-get_filename_from_path(const std::string &filepath)
-{
-  auto loc = filepath.find_last_of("/");
-
-  if(loc != std::string::npos)
-  {
-    return filepath.substr(loc + 1, filepath.size() - loc);
-  }
-
-  return ""; // Found no seperator}
 }
 
 
