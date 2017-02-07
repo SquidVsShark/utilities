@@ -2,6 +2,8 @@
   Optimizations
   --
   Little things to squeeze some perf.
+
+  Copyright: public-domain
 */
 #ifndef OPTIMIZATIONS_INCLUDED_2E400156_3060_4EDE_BE19_89C6645A7407
 #define OPTIMIZATIONS_INCLUDED_2E400156_3060_4EDE_BE19_89C6645A7407

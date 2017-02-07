@@ -2,6 +2,8 @@
   Conversions
   --
   Anything that needs converting from one thing to another.
+
+  Copyright: public-domain
 */
 #ifndef CONVERSION_INCLUDED_229B07AC_052C_4587_A87F_5637FFB63E21
 #define CONVERSION_INCLUDED_229B07AC_052C_4587_A87F_5637FFB63E21

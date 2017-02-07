@@ -1,3 +1,10 @@
+/*
+  Logging
+  --
+  Logging things.
+
+  Copyright: public-domain
+*/
 #ifndef LOGGING_INCLUDED_55713C67_54CB_4844_B789_EC11EFA4F9E6
 #define LOGGING_INCLUDED_55713C67_54CB_4844_B789_EC11EFA4F9E6
 

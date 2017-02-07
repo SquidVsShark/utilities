@@ -2,6 +2,8 @@
   Timer
   --
   High resolution timer.
+
+  Copyright: public-domain
 */
 #ifndef TIMER_INCLUDED_3B5C0BA4_B185_4918_A3B3_64FF42D0BD49
 #define TIMER_INCLUDED_3B5C0BA4_B185_4918_A3B3_64FF42D0BD49
@@ -81,6 +83,10 @@ float
 to_seconds(const milliseconds &milli) {
   return static_cast<float>(milli) / 1000.0f;
 }
+
+
+} // ns
+} // ns
 
 
 #endif // inc guard

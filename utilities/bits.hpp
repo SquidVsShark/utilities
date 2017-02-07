@@ -2,6 +2,8 @@
   Bits
   --
   Anything todo with bits and bit packing.
+
+  Copyright: public-domain
 */
 #ifndef BITS_INCLUDED_CBA564C2_BA9A_4D4E_A0B8_BCAF9ECE089B
 #define BITS_INCLUDED_CBA564C2_BA9A_4D4E_A0B8_BCAF9ECE089B
@@ -10,7 +12,7 @@
 #include <stdint.h>
 
 
-// ---------------------------------------------------------- [ Bit Config ] --
+// --------------------------------------------------------- [ Bits Config ] --
 
 
 #define UTIL_BITS_INLINE inline

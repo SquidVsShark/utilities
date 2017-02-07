@@ -2,6 +2,8 @@
   File
   --
   File helpers
+
+  Copyright: public-domain
 */
 #ifndef FILE_INCLUDED_0EC6E03B_3D7F_4AA7_B0B5_28E4F37CD0A1
 #define FILE_INCLUDED_0EC6E03B_3D7F_4AA7_B0B5_28E4F37CD0A1
@@ -10,8 +12,13 @@
 #include <stddef.h>
 
 
-//! This should be based on platform.
+// ------------------------------------------------------- [ File Configs ] --
+
+
 #define MAX_FILE_PATH_SIZE 2048
+
+
+// ----------------------------------------------------- [ File Interface ] --
 
 
 namespace util {
@@ -48,17 +55,26 @@ get_contents_from_file(const char *filename,
 #endif // inc guard
 
 
+// ----------------------------------------------------------- [ File Impl ] --
+
+
 #ifdef UTIL_FILE_IMPL
+#ifndef UTIL_FILE_IMPL_INCLUDED
+#define UTIL_FILE_IMPL_INCLUDED
 
 
 #include <stdio.h>
+#include <sys/types.h>
 #include <sys/stat.h>
+
 
 #ifndef _WIN32
 #include <unistd.h>
 #endif
 
+
 #ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include "Shlwapi.h"
 #endif
@@ -66,6 +82,9 @@ get_contents_from_file(const char *filename,
 
 namespace util {
 namespace file {
+
+
+// --------------------------------------------------------- [ File Exists ] --
 
 
 bool
@@ -78,6 +97,9 @@ exists(const char *filename)
   return PathFileExistsA(filename);
 	#endif
 }
+
+
+// --------------------------------------------------------- [ File bytes ] --
 
 
 size_t
@@ -100,6 +122,8 @@ bytes_in_file(const char *filename)
   return 0;
 }
 
+
+// ---------------------------------------------------- [ Contents of File ] --
 
 
 void
@@ -134,4 +158,5 @@ get_contents_from_file(const char *filename,
 } // ns
 
 
-#endif // inc guard
+#endif // impl guard
+#endif // impl guard

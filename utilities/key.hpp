@@ -2,6 +2,8 @@
   Key
   --
   Anything related to keys and key searching
+
+  Copyright: public-domain
 */
 #ifndef KEY_INCLUDED_3DAC3A09_4DD9_45B0_A521_4369D4B4B930
 #define KEY_INCLUDED_3DAC3A09_4DD9_45B0_A521_4369D4B4B930
@@ -9,6 +11,15 @@
 
 #include <stddef.h>
 #include <stdint.h>
+
+
+// ---------------------------------------------------------- [ Key Config ] --
+
+
+// Not impl yet.
+#define UTIL_KEY_CPP 0;
+#define UTIL_KEY_SIMD 0;
+#define UTIL_KEY_ASM 0;
 
 
 // ------------------------------------------------------- [ Key Interface ] --

@@ -2,6 +2,8 @@
   Directory
   --
   Executable directory path.
+
+  Copyright: public-domain
 */
 #ifndef DIRECTORY_INCLUDED_5551C33B_D835_42D2_99FF_661889A068A0
 #define DIRECTORY_INCLUDED_5551C33B_D835_42D2_99FF_661889A068A0
@@ -28,14 +30,12 @@ exe_path();
 #endif // inc guard
 
 
-#ifdef UTIL_DIRECTORY_IMPL
-
-
 // ------------------------------------------------------------ [ Dir Impl ] --
 
 
-namespace util {
-namespace dir {
+#ifdef UTIL_DIRECTORY_IMPL
+#ifndef UTIL_DIRECTORY_IMPL_INCLUDED
+#define UTIL_DIRECTORY_IMPL_INCLUDED
 
 
 // ---------------------------------------------------- [ exe_path Windows ] --
@@ -43,6 +43,11 @@ namespace dir {
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+
+
+namespace util {
+namespace dir {
+
 
 const char *
 exe_path()
@@ -82,6 +87,12 @@ exe_path()
 
   return buffer_path;
 }
+
+
+} // ns
+} // ns
+
+
 #endif
 
 
@@ -91,6 +102,11 @@ exe_path()
 #include <unistd.h>
 #include <cstring>
 #include <libgen.h>
+
+
+namespace util {
+namespace dir {
+
 
 const char *
 exe_path()
@@ -110,6 +126,10 @@ exe_path()
     }
   }
 }
+
+
+} // ns
+} // ns
 #endif
 
 
@@ -119,6 +139,11 @@ exe_path()
 #include <unistd.h>
 #include <cstring>
 #include <libproc.h>
+
+
+namespace util {
+namespace dir {
+
 
 const char *
 exe_path()
@@ -151,10 +176,12 @@ exe_path()
 
   return buffer_exe_path;
 }
+
+
+} // ns
+} // ns
 #endif
 
-} // ns
-} // ns
 
-
+#endif // impl guard
 #endif // impl guard

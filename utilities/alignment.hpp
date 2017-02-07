@@ -2,9 +2,14 @@
   Alignment
   --
   Anything todo with memory alignment
+
+  Copyright: public-domain
 */
 #ifndef ALIGMENT_INCLUDED_8FD72235_331D_4FF9_98E0_031C879705D2
 #define ALIGMENT_INCLUDED_8FD72235_331D_4FF9_98E0_031C879705D2
+
+
+#include <stdint.h>
 
 
 // ---------------------------------------------------- [ Alignment Config ] --
