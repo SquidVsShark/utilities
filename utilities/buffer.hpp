@@ -45,8 +45,11 @@ void    insert(data *buf, const size_t index);
 void    clear(data *buf);
 void    erase(data *buf, const size_t index);
 void*   bytes(data *buf);
+const void*   bytes(const data *buf);
 void*   last(data *buf);
+const void*   last(const data *buf);
 void*   at(data *buf, const size_t index);
+const void*   at(const data *buf, const size_t index);
 
 
 } // ns
@@ -239,6 +242,13 @@ bytes(data *buf)
 }
 
 
+const void*
+bytes(const data *buf)
+{
+  return bytes(const_cast<data*>(buf));
+}
+
+
 void*
 last(data *buf)
 {
@@ -246,11 +256,27 @@ last(data *buf)
 }
 
 
+const void*
+last(const data *buf)
+{
+  return last(const_cast<data*>(buf));
+}
+
+
+
 void*
 at(data *buf, const size_t i)
 {
   return &buf->data[buf->byte_stride * i];
 }
+
+
+const void*
+at(const data *buf, const size_t i)
+{
+  return at(const_cast<data*>(buf), i);
+}
+
 
 
 } // ns
