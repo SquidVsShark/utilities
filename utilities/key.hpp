@@ -17,15 +17,15 @@
 
 
 // Not impl yet.
-#define UTIL_KEY_CPP 0;
-#define UTIL_KEY_SIMD 0;
-#define UTIL_KEY_ASM 0;
+#define LIB_KEY_CPP 0;
+#define LIB_KEY_SIMD 0;
+#define LIB_KEY_ASM 0;
 
 
 // ------------------------------------------------------- [ Key Interface ] --
 
 
-namespace util {
+namespace lib {
 namespace key {
 
 
@@ -43,13 +43,13 @@ linear_search(const uint32_t id_to_find,
 #endif // inc guard
 
 
-#ifdef UTIL_KEY_IMPL
-
-
 // ------------------------------------------------------------ [ Key Impl ] --
 
 
-namespace util {
+#ifdef LIB_KEY_IMPL
+
+
+namespace lib {
 namespace key {
 
 

@@ -15,10 +15,12 @@
 // --------------------------------------------------------- [ Bits Config ] --
 
 
-#define UTIL_BITS_INLINE inline
+#ifndef LIB_BITS_INLINE
+#define LIB_BITS_INLINE constexpr
+#endif
 
 
-// ----------------------------------------------------------- [ Bit Macro ] --
+// ---------------------------------------------------------- [ BIT Macro ] --
 
 
 #define BIT(n) 1 << n
@@ -27,19 +29,19 @@
 // ------------------------------------------------------ [ Bit Un-Packing ] --
 
 
-namespace util {
+namespace lib {
 namespace bits {
 
 
-UTIL_BITS_INLINE uint32_t
-upper(const uint64_t i)
+LIB_BITS_INLINE uint32_t
+upper32(const uint64_t i)
 {
   return i & 0xffffffff;
 }
 
 
-UTIL_BITS_INLINE uint32_t
-lower(const uint64_t i)
+LIB_BITS_INLINE uint32_t
+lower32(const uint64_t i)
 {
   return i >> 32;
 }
@@ -52,12 +54,12 @@ lower(const uint64_t i)
 // --------------------------------------------------------- [ Bit Packing ] --
 
 
-namespace util {
+namespace lib {
 namespace bits {
 
 
-UTIL_BITS_INLINE uint64_t
-pack(const uint32_t a, const uint32_t b)
+LIB_BITS_INLINE uint64_t
+pack3232(const uint32_t a, const uint32_t b)
 {
   return ((uint64_t)a) << 32 | b;
 }

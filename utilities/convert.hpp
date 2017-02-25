@@ -12,13 +12,20 @@
 #include <stdint.h>
 
 
-namespace util {
+namespace lib {
 namespace convert {
+
+// ------------------------------------------------------ [ Convert Config ] --
+
+
+#ifndef LIB_CONVERT_INLINE
+#define LIB_CONVERT_INLINE constexpr
+#endif
 
 
 // ----------------------------------------------------------- [ Data Size ] --
 
-constexpr uint32_t
+LIB_CONVERT_INLINE uint32_t
 mb_to_bytes(const uint32_t mb)
 {
   return mb * 1048576;

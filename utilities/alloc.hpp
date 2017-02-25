@@ -15,7 +15,7 @@
 // ------------------------------------------------- [ Alloc Function Ptrs ] --
 
 
-namespace util {
+namespace lib {
 
 
 using malloc_fn  = void*(*)(size_t size);

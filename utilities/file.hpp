@@ -15,13 +15,15 @@
 // ------------------------------------------------------- [ File Configs ] --
 
 
-#define MAX_FILE_PATH_SIZE 2048
+#ifndef LIB_MAX_FILE_PATH_SIZE
+#define LIB_MAX_FILE_PATH_SIZE 2048
+#endif
 
 
 // ----------------------------------------------------- [ File Interface ] --
 
 
-namespace util {
+namespace lib {
 namespace file {
 
 
@@ -36,16 +38,16 @@ exists(const char *filename);
   Returns the size of the file.
 */
 size_t
-bytes_in_file(const char *filename);
+bytes(const char *filename);
 
 
 /*!
   Copies the contents of a file into the buffer.
 */
 void
-get_contents_from_file(const char *filename,
-                       char *out_buffer,
-                       size_t bytes_in_out_buffer);
+get_contents(const char *filename,
+             char *out_buffer,
+             size_t bytes_in_out_buffer);
 
 
 } // ns
@@ -58,9 +60,9 @@ get_contents_from_file(const char *filename,
 // ----------------------------------------------------------- [ File Impl ] --
 
 
-#ifdef UTIL_FILE_IMPL
-#ifndef UTIL_FILE_IMPL_INCLUDED
-#define UTIL_FILE_IMPL_INCLUDED
+#ifdef LIB_FILE_IMPL
+#ifndef LIB_FILE_IMPL_INCLUDED
+#define LIB_FILE_IMPL_INCLUDED
 
 
 #include <stdio.h>
@@ -80,7 +82,7 @@ get_contents_from_file(const char *filename,
 #endif
 
 
-namespace util {
+namespace lib {
 namespace file {
 
 
@@ -103,7 +105,7 @@ exists(const char *filename)
 
 
 size_t
-bytes_in_file(const char *filename)
+bytes(const char *filename)
 {
   // Open the file in binary mode
   FILE *f = fopen(filename, "rb");
@@ -127,9 +129,9 @@ bytes_in_file(const char *filename)
 
 
 void
-get_contents_from_file(const char *filename,
-                       char *out_buffer,
-                       const size_t bytes_in_out_buffer)
+get_contents(const char *filename,
+             char *out_buffer,
+             const size_t bytes_in_out_buffer)
 {
   // Open the file in binary mode
   FILE *f = fopen(filename, "rb");

@@ -12,7 +12,7 @@
 // ------------------------------------------------------- [ Dir Interface ] --
 
 
-namespace util {
+namespace lib {
 namespace dir {
 
 
@@ -33,19 +33,20 @@ exe_path();
 // ------------------------------------------------------------ [ Dir Impl ] --
 
 
-#ifdef UTIL_DIRECTORY_IMPL
-#ifndef UTIL_DIRECTORY_IMPL_INCLUDED
-#define UTIL_DIRECTORY_IMPL_INCLUDED
+#ifdef LIB_DIRECTORY_IMPL
+#ifndef LIB_DIRECTORY_IMPL_INCLUDED
+#define LIB_DIRECTORY_IMPL_INCLUDED
 
 
 // ---------------------------------------------------- [ exe_path Windows ] --
+
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
 
-namespace util {
+namespace lib {
 namespace dir {
 
 
@@ -104,7 +105,7 @@ exe_path()
 #include <libgen.h>
 
 
-namespace util {
+namespace lib {
 namespace dir {
 
 
@@ -141,7 +142,7 @@ exe_path()
 #include <libproc.h>
 
 
-namespace util {
+namespace lib {
 namespace dir {
 
 

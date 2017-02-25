@@ -23,40 +23,42 @@
 // -------------------------------------------------------- [ Color Config ] --
 
 
-#define UTIL_COLOR_INLINE inline
+#ifndef LIB_COLOR_INLINE
+#define LIB_COLOR_INLINE inline
+#endif
 
 
 // ----------------------------------------------------- [ Color Interface ] --
 
 
-namespace util {
+namespace lib {
 namespace color {
 
 
 using color = uint32_t;
 
 
-UTIL_COLOR_INLINE color        init(const uint32_t hex_components = 0xC1C2C3C4);
-UTIL_COLOR_INLINE color        init(const uint8_t c1,
+LIB_COLOR_INLINE color        init(const uint32_t hex_components = 0xC1C2C3C4);
+LIB_COLOR_INLINE color        init(const uint8_t c1,
                                     const uint8_t c2,
                                     const uint8_t c3,
                                     const uint8_t c4);
-UTIL_COLOR_INLINE color        init(const float c1,
+LIB_COLOR_INLINE color        init(const float c1,
                                     const float c2,
                                     const float c3,
                                     const float c4);
-UTIL_COLOR_INLINE color        init(const float channels[4]);
-UTIL_COLOR_INLINE color        init(const uint8_t channels[4]);
+LIB_COLOR_INLINE color        init(const float channels[4]);
+LIB_COLOR_INLINE color        init(const uint8_t channels[4]);
 
-UTIL_COLOR_INLINE uint8_t      get_channel_1i(const color get_channel);
-UTIL_COLOR_INLINE uint8_t      get_channel_2i(const color get_channel);
-UTIL_COLOR_INLINE uint8_t      get_channel_3i(const color get_channel);
-UTIL_COLOR_INLINE uint8_t      get_channel_4i(const color get_channel);
+LIB_COLOR_INLINE uint8_t      get_channel_1i(const color get_channel);
+LIB_COLOR_INLINE uint8_t      get_channel_2i(const color get_channel);
+LIB_COLOR_INLINE uint8_t      get_channel_3i(const color get_channel);
+LIB_COLOR_INLINE uint8_t      get_channel_4i(const color get_channel);
 
-UTIL_COLOR_INLINE float        get_channel_1f(const color get_channel);
-UTIL_COLOR_INLINE float        get_channel_2f(const color get_channel);
-UTIL_COLOR_INLINE float        get_channel_3f(const color get_channel);
-UTIL_COLOR_INLINE float        get_channel_4f(const color get_channel);
+LIB_COLOR_INLINE float        get_channel_1f(const color get_channel);
+LIB_COLOR_INLINE float        get_channel_2f(const color get_channel);
+LIB_COLOR_INLINE float        get_channel_3f(const color get_channel);
+LIB_COLOR_INLINE float        get_channel_4f(const color get_channel);
 
 
 } // ns
@@ -66,23 +68,23 @@ UTIL_COLOR_INLINE float        get_channel_4f(const color get_channel);
 // ---------------------------------------------------------- [ Color Impl ] --
 
 
-namespace util {
+namespace lib {
 namespace color {
 
 
-namespace detail
-{
-  inline
-  uint8_t to_uint8(const float c)
-  {
-    return static_cast<uint8_t>((c / 1.f) * 255);
-  }
+namespace detail {
 
-  inline float to_float(const uint8_t c)
-  {
-    return static_cast<float>(c) / 255.f;
-  }
+inline
+uint8_t to_uint8(const float c) {
+  return static_cast<uint8_t>((c / 1.f) * 255);
 }
+
+inline float
+to_float(const uint8_t c) {
+  return static_cast<float>(c) / 255.f;
+}
+
+} // anon ns
 
 
 color
@@ -190,4 +192,4 @@ get_channel_4f(const color get_channel)
 } // ns
 
 
-#endif // include guard
+#endif // inc guard

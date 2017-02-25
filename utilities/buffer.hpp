@@ -6,7 +6,7 @@
   Warning
   --
   This is a typeless buffer it can lead to some unexpected things. Consider
-  using a vector instead, I made this for some fun really.
+  using a std::vector or something else instead, I made this for some fun really.
 
   Copyright: public-domain
 */
@@ -19,7 +19,7 @@
 #include "alloc.hpp"
 
 
-namespace util {
+namespace lib {
 namespace buffer {
 
 
@@ -29,9 +29,9 @@ struct data
   size_t            byte_count    = 0;
   size_t            bytes_used    = 0;
   size_t            byte_stride   = 1;
-  util::malloc_fn   allocate_fn   = nullptr;
-  util::realloc_fn  reallocate_fn = nullptr;
-  util::free_fn     destroy_fn    = nullptr;
+  lib::malloc_fn    allocate_fn   = nullptr;
+  lib::realloc_fn   reallocate_fn = nullptr;
+  lib::free_fn      destroy_fn    = nullptr;
 };
 
 
@@ -42,9 +42,9 @@ struct data
 bool    init(data *buf,
              const size_t stride,
              const size_t init_elem_count,
-             const util::malloc_fn alloc = malloc,
-             const util::realloc_fn resize = realloc,
-             const util::free_fn destroy = free);
+             const lib::malloc_fn alloc = malloc,
+             const lib::realloc_fn resize = realloc,
+             const lib::free_fn destroy = free);
 void    destroy(data *buf);
 bool    empty(const data *buf);
 size_t  size(const data *buf);
@@ -69,14 +69,14 @@ void*   last(data *buf);
   Implimentation
 */
 
-#ifdef UTIL_BUFFER_IMPL
+#ifdef LIB_BUFFER_IMPL
 
 
 #include <stdint.h>
 #include <string.h>
 
 
-namespace util {
+namespace lib {
 namespace buffer {
 
 
@@ -84,9 +84,9 @@ bool
 init(data *buf,
      const size_t stride,
      const size_t init_elem_count,
-     const util::malloc_fn alloc,
-     const util::realloc_fn resize,
-     const util::free_fn destroy)
+     const lib::malloc_fn alloc,
+     const lib::realloc_fn resize,
+     const lib::free_fn destroy)
 {
   if(buf->data != nullptr)
   {

@@ -18,7 +18,7 @@
 #include "file.hpp"
 
 
-namespace util {
+namespace lib {
 
 
 // Get filename from path
@@ -90,9 +90,9 @@ hash_include_string(const std::string &string_to_search, const std::vector<std::
     {
       const std::string path = dir + filename;
       std::string contents;
-      contents.resize(file::bytes_in_file(path.c_str()));
+      contents.resize(file::bytes(path.c_str()));
 
-      file::get_contents_from_file(path.c_str(), &contents[0], contents.size());
+      file::get_contents(path.c_str(), &contents[0], contents.size());
       const std::size_t find      = result.find(include);
 
       if(find != std::string::npos)

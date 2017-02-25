@@ -8,7 +8,7 @@
 #include <stdio.h>
 
 
-namespace util {
+namespace lib {
 
 
 struct obj_mesh
@@ -313,7 +313,7 @@ gl_mesh create_open_gl_mesh(const std::vector<float> &positions,
 #include <algorithm>
 
 
-namespace util {
+namespace lib {
 
 
 obj_model

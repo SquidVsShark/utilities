@@ -6,7 +6,7 @@
 #include <stddef.h>
 
 
-namespace util {
+namespace lib {
 
 // Private details
 namespace detail {

@@ -21,29 +21,38 @@
 // ------------------------------------------------------- [ Timer Config ] --
 
 
-#define UTIL_TIMER_INLINE inline
+#ifndef LIB_TIMER_INLINE
+#define LIB_TIMER_INLINE inline
+#endif
+
+
+// -------------------------------------------------------- [ Timer Millis ] --
+
+
+namespace lib {
+
+using milliseconds = long long int;
+
+} // ns
 
 
 // ----------------------------------------------------- [ Timer Interface ] --
 
 
-namespace util {
+namespace lib {
 namespace timer {
 
 
-using milliseconds = long long int;
-
-
-UTIL_TIMER_INLINE milliseconds
+LIB_TIMER_INLINE ::lib::milliseconds
 get_current_time();
 
 
-UTIL_TIMER_INLINE milliseconds
-get_difference(const milliseconds &start, const milliseconds &end);
+LIB_TIMER_INLINE ::lib::milliseconds
+get_delta(const ::lib::milliseconds &start, const ::lib::milliseconds &end);
 
 
-UTIL_TIMER_INLINE float
-to_seconds(const milliseconds &milli);
+LIB_TIMER_INLINE float
+to_seconds(const ::lib::milliseconds &milli);
 
 
 } // ns
@@ -53,11 +62,11 @@ to_seconds(const milliseconds &milli);
 // ---------------------------------------------------------- [ Timer Impl ] --
 
 
-namespace util {
+namespace lib {
 namespace timer {
 
 
-milliseconds
+::lib::milliseconds
 get_current_time()
 {
   #ifdef _WIN32
@@ -72,15 +81,15 @@ get_current_time()
 }
 
 
-milliseconds
-get_difference(const milliseconds &start, const milliseconds &end)
+::lib::milliseconds
+get_delta(const ::lib::milliseconds &start, const ::lib::milliseconds &end)
 {
   return end - start;
 }
 
 
 float
-to_seconds(const milliseconds &milli) {
+to_seconds(const ::lib::milliseconds &milli) {
   return static_cast<float>(milli) / 1000.0f;
 }
 

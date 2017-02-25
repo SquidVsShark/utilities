@@ -15,7 +15,9 @@
 // ---------------------------------------------------- [ Alignment Config ] --
 
 
-#define ALIGN_INLINE inline
+#ifndef ALIGN_INLINE
+#define ALIGN_INLINE constexpr
+#endif
 
 
 // ----------------------------------------------------- [ Alignment Macro ] --
@@ -31,10 +33,13 @@
 // ----------------------------------------------------- [ Boundry aligned ] --
 
 
-namespace util {
+namespace lib {
 namespace align {
 
 
+/*!
+  Gets the next 16 byte boundry.
+*/
 ALIGN_INLINE uintptr_t
 get_boundry_16(const uintptr_t addr)
 {
@@ -43,6 +48,9 @@ get_boundry_16(const uintptr_t addr)
 }
 
 
+/*!
+  Returns true if the address is 16 byte aligned.
+*/
 ALIGN_INLINE bool
 is_aligned_16(const uintptr_t addr)
 {
