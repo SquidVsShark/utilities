@@ -4,45 +4,64 @@
   Stack based array that can by dynamically resized.
   Sorta a mix between a vector and an array.
 
+  This was designed with mainly using POD types in mind. Will not be safe for
+  non pod types.
+
   Copyright: public-domain
 */
 #ifndef ARRAY_INCLUDED_E3E1A14B_B476_40C7_9453_ECD5F3F344F2
 #define ARRAY_INCLUDED_E3E1A14B_B476_40C7_9453_ECD5F3F344F2
 
 
+#include "alloc.hpp"
 #include <stdint.h>
 #include <stddef.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <algorithm>
 #include <new>
 
 
 namespace lib {
 
 
-template<typename T, size_t _init_capacity>
+template<
+  typename T,
+  size_t _init_capacity = 32,
+  malloc_fn _malloc     = malloc,
+  realloc_fn _realloc   = realloc,
+  free_fn _free         = free
+>
 class array
 {
 public:
 
-  explicit array(const bool resize)
-  : _begin(_stack_data)
-  , _stack_data()
-  , _capacity(_begin + _init_capacity)
-  , _end(_begin + (resize ? _init_capacity : 0))
+  explicit array()
+  : m_stack_data()
+  , m_begin(m_stack_data)
+  , m_end(m_begin)
+  , m_capacity(m_begin + _init_capacity)
   {
+    static_assert(__is_pod(T), "lib::array is for POD types only");
   }
 
 
   template<typename ...Args>
   array(const Args &...args)
-  : _begin(_stack_data)
-  , _stack_data{args...}
-  , _capacity(_begin + _init_capacity)
-  , _end(_begin + sizeof...(args))
+  : m_stack_data{args...}
+  , m_begin(m_stack_data)
+  , m_end(m_begin + sizeof...(args))
+  , m_capacity(m_begin + _init_capacity)
   {
+    static_assert(__is_pod(T), "lib::array is for POD types only");
+  }
+
+
+  ~array()
+  {
+    if(m_begin != m_stack_data)
+    {
+      _free(m_begin);
+    }
   }
 
   // Interactions //
@@ -50,33 +69,33 @@ public:
   void
   reserve(const size_t new_size)
   {
-    const size_t curr_size = size();
+    const size_t curr_size = m_end - m_begin;
 
-    if(_stack_data == _begin)
+    if(m_stack_data == m_begin)
     {
-      _begin = (T*)malloc(sizeof(T) * new_size);
-      memcpy(_begin, _stack_data, sizeof(T) * curr_size);
+      m_begin = (T*)_malloc(sizeof(T) * new_size);
+      memcpy(m_begin, m_stack_data, sizeof(T) * curr_size);
     }
     else
     {
-      _begin = (T*)realloc(_begin, sizeof(T) * new_size);
+      m_begin = (T*)_realloc(m_begin, sizeof(T) * new_size);
     }
 
-    _end      = _begin + curr_size;
-    _capacity = _begin + new_size;
+    m_end      = m_begin + curr_size;
+    m_capacity = m_begin + new_size;
   }
 
   void
   resize(const size_t new_size)
   {
     reserve(new_size);
-    _end = _begin + new_size;
+    m_end = m_begin + new_size;
   }
 
   void
   push_back(T &&item)
   {
-    _end < _capacity ?
+    m_end < m_capacity ?
       _fast_push(static_cast<T&&>(item)) :
       _slow_push(static_cast<T&&>(item));
   }
@@ -85,35 +104,35 @@ public:
   void
   emplace_back(Args&& ...args)
   {
-    _end < _capacity ?
+    m_end < m_capacity ?
       _fast_emplace(args...) :
       _slow_emplace(args...);
   }
 
   // Various Getters //
 
-  T& operator[](const size_t i)             { return _begin[i]; }
-  const T& operator[](const size_t i) const { return _begin[i]; }
+  T& operator[](const size_t i)             { return m_begin[i]; }
+  const T& operator[](const size_t i) const { return m_begin[i]; }
 
-  T* data()                 { return _begin; }
-  T const* data() const     { return _begin; }
+  T* data()                 { return m_begin; }
+  T const* data() const     { return m_begin; }
 
-  T* begin()                { return _begin; }
-  T const* begin() const    { return _begin; }
+  T* begin()                { return m_begin; }
+  T const* begin() const    { return m_begin; }
 
-  T* end()                  { return _end; }
-  T const* end() const      { return _end; }
+  T* end()                  { return m_end; }
+  T const* end() const      { return m_end; }
 
-  bool empty() const        { return (_end == _begin); }
-  size_t size() const       { return (_end - _begin); }
-  size_t capacity() const   { return (_capacity - _begin); }
+  bool empty() const        { return (m_end == m_begin); }
+  size_t size() const       { return (m_end - m_begin); }
+  size_t capacity() const   { return (m_capacity - m_begin); }
 
 private:
 
   void _fast_push(T &&item)
   {
-    _begin[size()] = item;
-    _end += 1;
+    new(m_end) T(item);
+    m_end += 1;
   }
 
   void _slow_push(T &&item)
@@ -125,8 +144,8 @@ private:
   template<typename ...Args>
   void _fast_emplace(Args &&...args)
   {
-    new(&_begin[size()]) T(args...);
-    _end += 1;
+    new(m_end) T{args...};
+    m_end += 1;
   }
 
   template<typename ...Args>
@@ -134,16 +153,16 @@ private:
   {
     reserve(size() << 1);
 
-    new(&_begin[size()]) T(args...);
-    _end += 1;
+    new(m_end) T{args...};
+    m_end += 1;
   }
 
 private:
 
-  T*      _begin;
-  T*      _end;
-  T*      _capacity;
-  T       _stack_data[_init_capacity];
+  T       m_stack_data[_init_capacity];
+  T*      m_begin;
+  T*      m_end;
+  T*      m_capacity;
 };
 
 
