@@ -19,6 +19,7 @@
 
 
 namespace lib {
+namespace string {
 
 
 // Get filename from path
@@ -127,7 +128,7 @@ get_text_between_tags(const char *start_tag,
 
 
 } // ns
-
+} // ns
 
 
 #if defined(_MSC_VER) || defined(__GNUC__)

@@ -49,7 +49,7 @@ gl_mesh create_open_gl_mesh(const std::vector<float> &positions, const std::vect
 
 #endif // include guard
 
-#ifdef OBJ_MODEL_LOADER_IMPL
+#ifdef LIB_OBJ_MODEL_LOADER_IMPL
 
 #include <fstream>
 #include <sstream>
@@ -57,7 +57,7 @@ gl_mesh create_open_gl_mesh(const std::vector<float> &positions, const std::vect
 #include <algorithm>
 
 
-namespace util {
+namespace lib {
 
 
 obj_model

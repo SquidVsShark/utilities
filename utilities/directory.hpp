@@ -53,7 +53,7 @@ namespace dir {
 const char *
 exe_path()
 {
-  static char buffer_path[MAX_FILE_PATH_SIZE] = "\0";
+  static char buffer_path[LIB_MAX_FILE_PATH_SIZE] = "\0";
 
   if(strcmp(buffer_path, "") == 0)
   {
@@ -61,10 +61,10 @@ exe_path()
     HMODULE hModule = GetModuleHandle(NULL);
     if (hModule != NULL)
     {
-      GetModuleFileNameA(NULL, buffer_path, MAX_FILE_PATH_SIZE);
+      GetModuleFileNameA(NULL, buffer_path, LIB_MAX_FILE_PATH_SIZE);
 
       size_t path_length = 0;
-      for(size_t i = 0; i < MAX_FILE_PATH_SIZE; i++)
+      for(size_t i = 0; i < LIB_MAX_FILE_PATH_SIZE; i++)
       {
         if(buffer_path[i] == '\0') {
           path_length = i;

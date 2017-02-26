@@ -10,6 +10,7 @@
 
 
 #include <stdint.h>
+#include <stddef.h>
 
 
 // ---------------------------------------------------- [ Alignment Config ] --
@@ -55,6 +56,28 @@ ALIGN_INLINE bool
 is_aligned_16(const uintptr_t addr)
 {
   return get_boundry_16(addr) == addr;
+}
+
+
+} // ns
+} // ns
+
+
+// --------------------------------------------------------- [ Misc Memory ] --
+
+
+namespace lib {
+namespace align {
+
+
+/*
+  Offsets a pointer.
+*/
+ALIGN_INLINE uintptr_t
+mem_offset(const uintptr_t data, const size_t offset)
+{
+  const uintptr_t byte = data + offset;
+  return byte;
 }
 
 

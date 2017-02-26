@@ -12,13 +12,6 @@
 #include <stddef.h>
 
 
-// ------------------------------------------------------- [ File Configs ] --
-
-
-#ifndef LIB_MAX_FILE_PATH_SIZE
-#define LIB_MAX_FILE_PATH_SIZE 2048
-#endif
-
 
 // ----------------------------------------------------- [ File Interface ] --
 

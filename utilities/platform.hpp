@@ -140,4 +140,30 @@ is_msvs_compiler()
 } // ns
 
 
+// -------------------------------------------- [ Platform Constant Macros ] --
+
+
+#ifndef LIB_MAX_FILE_PATH_SIZE
+#define LIB_MAX_FILE_PATH_SIZE 2048
+#endif
+
+
+// ----------------------------------------- [ Platform Constant Functions ] --
+
+
+namespace lib {
+namespace platform {
+
+
+constexpr size_t
+max_file_path_size()
+{
+  return size_t{LIB_MAX_FILE_PATH_SIZE};
+}
+
+
+} // ns
+} // ns
+
+
 #endif // inc guard
