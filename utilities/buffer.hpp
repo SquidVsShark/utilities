@@ -178,8 +178,8 @@ push(data *buf)
     {
       reserve(buf, size(buf) << 1);
     }
-    
-    memset(&buf->data[buf->bytes_used], 0, buf->byte_stride);
+
+    // memset(&buf->data[buf->bytes_used], 0, buf->byte_stride);
 
     buf->bytes_used += buf->byte_stride;
   }
