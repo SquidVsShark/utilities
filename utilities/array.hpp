@@ -4,7 +4,7 @@
   Stack based array that can by dynamically resized.
   Sorta a mix between a vector and an array.
 
-  This was designed with mainly using POD types in mind. Will not be safe for
+  This was designed only with POD types in mind. Will not be safe for
   non pod types.
 
   Copyright: public-domain
