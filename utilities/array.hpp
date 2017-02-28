@@ -93,7 +93,7 @@ public:
   }
 
   void
-  push_back(T &&item)
+  push_back(const T &&item)
   {
     m_end < m_capacity ?
       _fast_push(static_cast<T&&>(item)) :

@@ -16,7 +16,7 @@
 
 
 #ifndef LIB_NUMBER_INLINE
-#define LIB_NUMBER_INLINE constexpr
+#define LIB_NUMBER_INLINE inline
 #endif
 
 
@@ -36,7 +36,7 @@ is_power_of_two(const uint32_t number)
 LIB_NUMBER_INLINE uint32_t
 next_power_of_two(const uint32_t number)
 {
-  return pow(2, ceil(log(x)/log(2)));
+  return pow(2, ceil(log(number)/log(2)));
 }
 
 
