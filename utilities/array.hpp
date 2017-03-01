@@ -55,7 +55,6 @@ public:
     static_assert(__is_pod(T), "lib::array is for POD types only");
   }
 
-
   ~array()
   {
     if(m_begin != m_stack_data)
@@ -63,7 +62,7 @@ public:
       _free(m_begin);
     }
   }
-
+  
   // Interactions //
 
   void
