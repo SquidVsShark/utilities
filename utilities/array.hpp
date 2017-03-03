@@ -41,7 +41,7 @@ public:
   , m_end(m_begin)
   , m_capacity(m_begin + (_init_capacity ? _init_capacity : 1))
   {
-    static_assert(__is_pod(T), "lib::array is for POD types only");
+    static_assert(__is_pod(T), "array is for POD types only");
   }
 
 
@@ -52,7 +52,7 @@ public:
   , m_end(m_begin + sizeof...(args))
   , m_capacity(m_begin + (_init_capacity ? _init_capacity : 1))
   {
-    static_assert(__is_pod(T), "lib::array is for POD types only");
+    static_assert(__is_pod(T), "array is for POD types only");
   }
 
   ~array()
@@ -62,7 +62,7 @@ public:
       _free(m_begin);
     }
   }
-  
+
   // Interactions //
 
   void
@@ -92,19 +92,19 @@ public:
   }
 
   void
-  push_back(const T &&item)
+  push_back(T &&item)
   {
     m_end < m_capacity ?
       _fast_push(static_cast<T&&>(item)) :
       _slow_push(static_cast<T&&>(item));
   }
-  
+
   void
   push_back(const T &item)
   {
     m_end < m_capacity ?
-        _fast_push(static_cast<T&&>(item)) :
-        _slow_push(static_cast<T&&>(item));
+        _fast_push(item) :
+        _slow_push(item);
   }
 
   template<typename ...Args>
@@ -115,15 +115,28 @@ public:
       _fast_emplace(args...) :
       _slow_emplace(args...);
   }
-  
+
   void
   erase(const size_t i)
   {
-    const size_t index_to_erase = i;
-    const size_t start_index    = i + 1;
-    const size_t size_to_end    = (sizeof(T) * size()) - (sizeof(T) * i);
-    
-    memmove(m_begin + index_to_erase, m_begin + start_index, size_to_end);
+    const size_t curr_size = size();
+
+    if(i < curr_size)
+    {
+      const size_t index_to_erase = i;
+      const size_t start_index    = i + 1;
+      const size_t size_to_end    = (sizeof(T) * curr_size) - (sizeof(T) * i);
+
+      memmove(m_begin + index_to_erase, m_begin + start_index, size_to_end);
+
+      m_end -= 1;
+    }
+  }
+
+  void
+  clear()
+  {
+    m_end = m_begin;
   }
 
   // Various Getters //
@@ -152,10 +165,22 @@ private:
     m_end += 1;
   }
 
+  void _fast_push(const T &item)
+  {
+    new(m_end) T(item);
+    m_end += 1;
+  }
+
   void _slow_push(T &&item)
   {
     reserve(size() << 1);
     _fast_push(static_cast<T&&>(item));
+  }
+
+  void _slow_push(const T &item)
+  {
+    reserve(size() << 1);
+    _fast_push(item);
   }
 
   template<typename ...Args>
