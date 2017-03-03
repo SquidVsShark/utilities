@@ -20,13 +20,13 @@
 #endif
 
 #ifndef LIB_NS_NAME
-#define LIB_NS_NAME lib 
+#define LIB_NS_NAME lib
 #endif
 
 
 // ------------------------------------------------------- [ Number Funcs ] --
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace number {
 
 
