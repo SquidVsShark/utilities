@@ -12,9 +12,6 @@
 #include <stdint.h>
 
 
-namespace lib {
-namespace convert {
-
 // ------------------------------------------------------ [ Convert Config ] --
 
 
@@ -23,7 +20,17 @@ namespace convert {
 #endif
 
 
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
 // ----------------------------------------------------------- [ Data Size ] --
+
+
+namespace LIB_NS_NAME {
+namespace convert {
+
 
 LIB_CONVERT_INLINE uint32_t
 mb_to_bytes(const uint32_t mb)

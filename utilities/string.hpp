@@ -18,7 +18,18 @@
 #include "file.hpp"
 
 
-namespace lib {
+// ------------------------------------------------------- [ String Config ] --
+
+
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
+// --------------------------------------------------------- [ String Impl ] --
+
+
+namespace LIB_NS_NAME {
 namespace string {
 
 

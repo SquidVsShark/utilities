@@ -20,6 +20,11 @@
 #endif
 
 
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
 // ---------------------------------------------------------- [ BIT Macro ] --
 
 
@@ -29,7 +34,7 @@
 // ------------------------------------------------------ [ Bit Un-Packing ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace bits {
 
 
@@ -54,7 +59,7 @@ lower32(const uint64_t i)
 // --------------------------------------------------------- [ Bit Packing ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace bits {
 
 

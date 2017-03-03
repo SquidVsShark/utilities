@@ -19,7 +19,18 @@
 #include "alloc.hpp"
 
 
-namespace lib {
+// --------------------------------------------------------- [ Buffer Config ] --
+
+
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
+// ---------------------------------------------------- [ Buffer Interface ] --
+
+
+namespace LIB_NS_NAME {
 namespace buffer {
 
 
@@ -70,9 +81,9 @@ const void*   at(const data *buf, const size_t index);
 
 #endif // inc guard
 
-/*
-  Implimentation
-*/
+
+// --------------------------------------------------------- [ Buffer Impl ] --
+
 
 #ifdef LIB_BUFFER_IMPL
 
@@ -81,7 +92,7 @@ const void*   at(const data *buf, const size_t index);
 #include <string.h>
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace buffer {
 
 

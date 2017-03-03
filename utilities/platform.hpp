@@ -9,6 +9,14 @@
 #define PLATFORM_INCLUDED_0AD3FC5D_27E8_4FE2_862B_9D854FF664EB
 
 
+// ----------------------------------------------------- [ Platform Config ] --
+
+
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
 // ----------------------------------------------------- [ Platform Macros ] --
 
 
@@ -30,7 +38,7 @@
 // -------------------------------------------------- [ Platform Functions ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace platform {
 
 
@@ -99,7 +107,7 @@ is_windows_platform()
 // -------------------------------------------------- [ Compiler Functions ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace platform {
 
 
@@ -151,7 +159,7 @@ is_msvs_compiler()
 // ----------------------------------------- [ Platform Constant Functions ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace platform {
 
 

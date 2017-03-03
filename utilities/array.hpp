@@ -21,7 +21,18 @@
 #include <new>
 
 
-namespace lib {
+// -------------------------------------------------------- [ Array Config ] --
+
+
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
+// ------------------------------------------------------ [ Array Template ] --
+
+
+namespace LIB_NS_NAME {
 
 
 template<
@@ -35,6 +46,10 @@ class array
 {
 public:
 
+
+  // ------------------------------------------------------ [ Constructors ] --
+
+
   explicit array()
   : m_stack_data()
   , m_begin(m_stack_data)
@@ -43,7 +58,6 @@ public:
   {
     static_assert(__is_pod(T), "array is for POD types only");
   }
-
 
   template<typename ...Args>
   array(const Args &...args)
@@ -55,6 +69,10 @@ public:
     static_assert(__is_pod(T), "array is for POD types only");
   }
 
+
+  // -------------------------------------------------------- [ Destructor ] --
+
+
   ~array()
   {
     if(m_begin != m_stack_data)
@@ -62,8 +80,10 @@ public:
       _free(m_begin);
     }
   }
-  
-  // Interactions //
+
+
+  // ------------------------------------------------ [ Capacity Modifiers ] --
+
 
   void
   reserve(const size_t new_size)
@@ -90,6 +110,10 @@ public:
     reserve(new_size);
     m_end = m_begin + new_size;
   }
+
+
+  // ----------------------------------------------------- [ Push / Insert ] --
+
 
   void
   push_back(const T &&item)
@@ -134,6 +158,31 @@ public:
     memmove(m_begin + index_to_erase, m_begin + start_index, size_to_end);
   }
 
+  T*
+  insert(const size_t i, const T &item)
+  {
+    if(m_end == m_capacity)
+    {
+      reserve(size() << 1);
+    }
+
+    if(i < size())
+    {
+      const size_t insert_index = i + 1;
+      const size_t size_to_end  = size() - i;
+
+      memmove(m_begin + insert_index, m_begin + i, size_to_end * sizeof(T));
+
+      m_begin[i] = item;
+    }
+
+    return &m_begin[i];
+  }
+
+
+  // ------------------------------------------------------------- [ Erase ] --
+
+
   void
   erase(const size_t i)
   {
@@ -157,25 +206,52 @@ public:
     m_end = m_begin;
   }
 
-  // Various Getters //
+
+  // --------------------------------------------------- [ Element Access ] --
+
 
   T& operator[](const size_t i)             { return m_begin[i]; }
   const T& operator[](const size_t i) const { return m_begin[i]; }
 
-  T* data()                 { return m_begin; }
-  T const* data() const     { return m_begin; }
+  T* data()             { return m_begin; }
+  T const* data() const { return m_begin; }
 
-  T* begin()                { return m_begin; }
-  T const* begin() const    { return m_begin; }
+  T* begin()             { return m_begin; }
+  T const* begin() const { return m_begin; }
 
-  T* end()                  { return m_end; }
-  T const* end() const      { return m_end; }
+  T* end()             { return m_end; }
+  T const* end() const { return m_end; }
+
+  T& front()             { return *m_begin; };
+  const T& front() const { return *m_begin; };
+
+  T& back()             { return *m_end; };
+  const T& back() const { return *m_end; };
+
+  T& at(const size_t i)
+  {
+    return m_begin[i >= size() ? size() - 1 : i];
+  }
+
+  const T& at(const size_t i) const
+  {
+    return m_begin[i >= size() ? size() - 1 : i];
+  }
+
+
+  // --------------------------------------------------- [ Various Getters ] --
+
 
   bool empty() const        { return (m_end == m_begin); }
   size_t size() const       { return (m_end - m_begin); }
   size_t capacity() const   { return (m_capacity - m_begin); }
 
+
 private:
+
+
+  // --------------------------------------------------- [ Private Methods ] --
+
 
   void _fast_push(T &&item)
   {
@@ -212,9 +288,7 @@ private:
   void _slow_emplace(Args &&...args)
   {
     reserve(size() << 1);
-
-    new(m_end) T{args...};
-    m_end += 1;
+    _fast_emplace(args...);
   }
 
 private:
@@ -223,6 +297,7 @@ private:
   T*      m_begin;
   T*      m_end;
   T*      m_capacity;
+
 };
 
 

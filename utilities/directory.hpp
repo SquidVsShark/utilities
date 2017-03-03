@@ -9,10 +9,18 @@
 #define DIRECTORY_INCLUDED_5551C33B_D835_42D2_99FF_661889A068A0
 
 
+// ---------------------------------------------------------- [ Dir Config ] --
+
+
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
 // ------------------------------------------------------- [ Dir Interface ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace dir {
 
 
@@ -46,7 +54,7 @@ exe_path();
 #include <windows.h>
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace dir {
 
 
@@ -105,7 +113,7 @@ exe_path()
 #include <libgen.h>
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace dir {
 
 
@@ -142,7 +150,7 @@ exe_path()
 #include <libproc.h>
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace dir {
 
 
