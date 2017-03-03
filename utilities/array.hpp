@@ -69,6 +69,10 @@ public:
     static_assert(__is_pod(T), "array is for POD types only");
   }
 
+
+  // -------------------------------------------------------- [ Destructor ] --
+
+
   ~array()
   {
     if(m_begin != m_stack_data)
@@ -206,8 +210,15 @@ public:
   T& back()             { return *m_end; };
   const T& back() const { return *m_end; };
 
-  T& at(const size_t i)             { return *m_begin[i > size() ? size() : i]; }
-  const T& at(const size_t i) const { return *m_begin[i > size() ? size() : i]; }
+  T& at(const size_t i)
+  {
+    return m_begin[i >= size() ? size() - 1 : i];
+  }
+
+  const T& at(const size_t i) const
+  {
+    return m_begin[i >= size() ? size() - 1 : i];
+  }
 
 
   // --------------------------------------------------- [ Various Getters ] --
@@ -259,9 +270,7 @@ private:
   void _slow_emplace(Args &&...args)
   {
     reserve(size() << 1);
-
-    new(m_end) T{args...};
-    m_end += 1;
+    _fast_emplace(args...);
   }
 
 private:
