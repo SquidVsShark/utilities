@@ -28,10 +28,15 @@
 #endif
 
 
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
 // ----------------------------------------------------- [ Color Interface ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace color {
 
 
@@ -68,7 +73,7 @@ LIB_COLOR_INLINE float        get_channel_4f(const color get_channel);
 // ---------------------------------------------------------- [ Color Impl ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace color {
 
 

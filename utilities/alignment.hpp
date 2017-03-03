@@ -21,6 +21,11 @@
 #endif
 
 
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
 // ----------------------------------------------------- [ Alignment Macro ] --
 
 
@@ -34,7 +39,7 @@
 // ----------------------------------------------------- [ Boundry aligned ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace align {
 
 

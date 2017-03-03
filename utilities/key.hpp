@@ -21,12 +21,24 @@
 #define LIB_KEY_SIMD 0;
 #define LIB_KEY_ASM 0;
 
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
 
 // ------------------------------------------------------- [ Key Interface ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace key {
+
+
+void*
+id_to_ptr(const uint32_t id);
+
+
+uint32_t
+id_from_ptr(const void *ptr);
 
 
 bool
@@ -34,6 +46,14 @@ linear_search(const uint32_t id_to_find,
               const uint32_t ids[],
               const size_t id_count,
               size_t *out_index = nullptr);
+
+
+bool
+linear_search(const uint64_t id_to_find,
+              const uint64_t ids[],
+              const size_t id_count,
+              size_t *out_index = nullptr);
+
 
 
 } // ns
@@ -49,6 +69,40 @@ linear_search(const uint32_t id_to_find,
 #ifdef LIB_KEY_IMPL
 
 
+// ----------------------------------------------------------- [ U32 to Ptr] --
+
+
+namespace lib {
+namespace key {
+
+
+void*
+id_to_ptr(const uint32_t id)
+{
+  const uintptr_t warn = static_cast<uintptr_t>(id);
+  uint32_t* ptr = nullptr;
+
+  ptr = (uint32_t*)warn;
+
+  return ptr;
+}
+
+
+uint32_t
+id_from_ptr(const void *ptr)
+{
+  const uint32_t usr = (size_t)ptr;
+  return usr;
+}
+
+
+} // ns
+} // ns
+
+
+// -------------------------------------------------------------- [ Search ] --
+
+
 namespace lib {
 namespace key {
 
@@ -56,6 +110,30 @@ namespace key {
 bool
 linear_search(const uint32_t id_to_find,
               const uint32_t ids[],
+              const size_t id_count,
+              size_t *out_index)
+{
+  for(size_t i = 0; i < id_count; ++i)
+  {
+    if(ids[i] == id_to_find)
+    {
+      if(out_index)
+      {
+        *out_index = i;
+      }
+
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
+
+bool
+linear_search(const uint64_t id_to_find,
+              const uint64_t ids[],
               const size_t id_count,
               size_t *out_index)
 {

@@ -21,7 +21,18 @@
 #include <new>
 
 
-namespace lib {
+// -------------------------------------------------------- [ Array Config ] --
+
+
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
+// ------------------------------------------------------ [ Array Template ] --
+
+
+namespace LIB_NS_NAME {
 
 
 template<
@@ -134,6 +145,25 @@ public:
   }
 
   void
+  insert(const size_t i, const T &item)
+  {
+    if(m_end == m_capacity)
+    {
+      reserve(size() << 1);
+    }
+
+    if(i < size())
+    {
+      const size_t insert_index = i + 1;
+      const size_t size_to_end  = size() - i;
+
+      memmove(m_begin + insert_index, m_begin + i, size_to_end * sizeof(T));
+
+      m_begin[i] = item;
+    }
+  }
+
+  void
   clear()
   {
     m_end = m_begin;
@@ -156,6 +186,12 @@ public:
   bool empty() const        { return (m_end == m_begin); }
   size_t size() const       { return (m_end - m_begin); }
   size_t capacity() const   { return (m_capacity - m_begin); }
+
+  T& front()                { return *m_begin; };
+  const T& front() const    { return *m_begin; };
+
+  T& back()                 { return *m_end; };
+  const T& back() const     { return *m_end; };
 
 private:
 

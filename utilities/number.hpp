@@ -19,6 +19,10 @@
 #define LIB_NUMBER_INLINE inline
 #endif
 
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib 
+#endif
+
 
 // ------------------------------------------------------- [ Number Funcs ] --
 

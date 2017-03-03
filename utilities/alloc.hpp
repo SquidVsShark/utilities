@@ -12,10 +12,18 @@
 #include <stddef.h>
 
 
+// ----------------------------------------------- [ Alloc Function Config ] --
+
+
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
 // ------------------------------------------------- [ Alloc Function Ptrs ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 
 
 using malloc_fn  = void*(*)(size_t size);

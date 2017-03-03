@@ -12,11 +12,18 @@
 #include <stddef.h>
 
 
+// -------------------------------------------------------- [ File Config ] --
+
+
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
 
 // ----------------------------------------------------- [ File Interface ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace file {
 
 
@@ -75,7 +82,7 @@ get_contents(const char *filename,
 #endif
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace file {
 
 

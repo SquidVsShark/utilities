@@ -46,9 +46,6 @@
 #define LIB_HELPERS_IMPL
 #include "helpers.hpp"
 
-#define LIB_ID_IMPL
-#include "id.hpp"
-
 #define LIB_KEY_IMPL
 #include "key.hpp"
 

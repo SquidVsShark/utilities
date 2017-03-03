@@ -25,11 +25,15 @@
 #define LIB_TIMER_INLINE inline
 #endif
 
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
 
 // -------------------------------------------------------- [ Timer Millis ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 
 using milliseconds = long long int;
 
@@ -39,7 +43,7 @@ using milliseconds = long long int;
 // ----------------------------------------------------- [ Timer Interface ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace timer {
 
 
@@ -62,7 +66,7 @@ to_seconds(const ::lib::milliseconds &milli);
 // ---------------------------------------------------------- [ Timer Impl ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace timer {
 
 

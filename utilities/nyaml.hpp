@@ -17,12 +17,23 @@
 #include <vector>
 
 
+// -------------------------------------------------------- [ NYAML Config ] --
+
+
 // #define NYAML_DEUBG_PARSER_OUTPUT // for testing
 // #define NYAML_DEBUG_NODE_OUTPUT // for testing
 #define NYAML_INDENT_SIZE 2
 
 
-namespace lib {
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
+// ----------------------------------------------------- [ NAYML Interface ] --
+
+
+namespace LIB_NS_NAME {
 namespace nyaml {
 
 
@@ -81,7 +92,10 @@ export_to_string(const node &export_node);
 #include <stdio.h>
 
 
-namespace lib {
+// ---------------------------------------------------------- [ NYAML Impl ] --
+
+
+namespace LIB_NS_NAME {
 namespace nyaml {
 
 
