@@ -116,11 +116,19 @@ public:
 
 
   void
-  push_back(T &&item)
+  push_back(const T &&item)
   {
     m_end < m_capacity ?
       _fast_push(static_cast<T&&>(item)) :
       _slow_push(static_cast<T&&>(item));
+  }
+  
+  void
+  push_back(const T &item)
+  {
+    m_end < m_capacity ?
+        _fast_push(static_cast<T&&>(item)) :
+        _slow_push(static_cast<T&&>(item));
   }
 
   void
@@ -138,6 +146,16 @@ public:
     m_end < m_capacity ?
       _fast_emplace(args...) :
       _slow_emplace(args...);
+  }
+  
+  void
+  erase(const size_t i)
+  {
+    const size_t index_to_erase = i;
+    const size_t start_index    = i + 1;
+    const size_t size_to_end    = (sizeof(T) * size()) - (sizeof(T) * i);
+    
+    memmove(m_begin + index_to_erase, m_begin + start_index, size_to_end);
   }
 
   T*
