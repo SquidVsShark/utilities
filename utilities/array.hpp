@@ -116,19 +116,19 @@ public:
 
 
   void
-  push_back(const T &&item)
+  push_back(T &&item)
   {
     m_end < m_capacity ?
       _fast_push(static_cast<T&&>(item)) :
       _slow_push(static_cast<T&&>(item));
   }
-  
+
   void
   push_back(const T &item)
   {
     m_end < m_capacity ?
-        _fast_push(static_cast<T&&>(item)) :
-        _slow_push(static_cast<T&&>(item));
+        _fast_push(static_cast<T>(item)) :
+        _slow_push(static_cast<T>(item));
   }
 
   template<typename ...Args>
@@ -139,7 +139,7 @@ public:
       _fast_emplace(args...) :
       _slow_emplace(args...);
   }
-  
+
   T*
   insert(const size_t i, const T &item)
   {
