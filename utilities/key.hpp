@@ -42,18 +42,29 @@ id_from_ptr(const void *ptr);
 
 
 bool
-linear_search(const uint32_t id_to_find,
-              const uint32_t ids[],
-              const size_t id_count,
-              size_t *out_index = nullptr);
+linear_search(
+  const uint32_t id_to_find,
+  const uint32_t ids[],
+  const size_t id_count,
+  size_t *out_index = nullptr
+);
 
 
 bool
-linear_search(const uint64_t id_to_find,
-              const uint64_t ids[],
-              const size_t id_count,
-              size_t *out_index = nullptr);
+linear_search(
+  const uint64_t id_to_find,
+  const uint64_t ids[],
+  const size_t id_count,
+  size_t *out_index = nullptr
+);
 
+
+size_t
+upper_bounds(
+  const uint64_t id,
+  const uint64_t ids[],
+  const size_t id_count
+);
 
 
 } // ns
@@ -72,7 +83,7 @@ linear_search(const uint64_t id_to_find,
 // ----------------------------------------------------------- [ U32 to Ptr] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace key {
 
 
@@ -100,10 +111,10 @@ id_from_ptr(const void *ptr)
 } // ns
 
 
-// -------------------------------------------------------------- [ Search ] --
+// ------------------------------------------------------- [ Linear Search ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace key {
 
 
@@ -151,6 +162,35 @@ linear_search(const uint64_t id_to_find,
   }
 
   return false;
+}
+
+
+} // ns
+} // ns
+
+
+// ------------------------------------------------------- [ Bounds Search ] --
+
+
+namespace LIB_NS_NAME {
+namespace key {
+
+
+size_t
+upper_bounds(
+  const uint64_t id,
+  const uint64_t ids[],
+  const size_t id_count)
+{
+  return 0;
+  // size_t count = id_count;
+  //
+  // while(count > 0)
+  // {
+  //   if(ids[count] < ids[])
+  // }
+  //
+  // return i;
 }
 
 
