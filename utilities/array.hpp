@@ -154,11 +154,35 @@ public:
       const size_t size_to_end  = size() - i;
 
       memmove(m_begin + insert_index, m_begin + i, size_to_end * sizeof(T));
-
+      m_end += 1;
       m_begin[i] = item;
     }
 
     return &m_begin[i];
+  }
+  
+  template<typename ...Args>
+  T*
+  insert(const size_t i, Args&& ...args)
+  {
+    if(m_end == m_capacity)
+    {
+      reserve(size() << 1);
+    }
+
+    if(i < size())
+    {
+      const size_t insert_index = i + 1;
+      const size_t size_to_end  = size() - i;
+
+      memmove(m_begin + insert_index, m_begin + i, size_to_end * sizeof(T));
+      m_end += 1;
+
+      new(&m_begin[i]) T{args...};
+    }
+
+    return &m_begin[i];
+
   }
 
 
@@ -207,8 +231,8 @@ public:
   T& front()             { return *m_begin; };
   const T& front() const { return *m_begin; };
 
-  T& back()             { return *m_end; };
-  const T& back() const { return *m_end; };
+  T& back()             { return *(m_end - 1); };
+  const T& back() const { return *(m_end - 1); };
 
   T& at(const size_t i)
   {
