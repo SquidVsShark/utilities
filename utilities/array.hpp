@@ -59,6 +59,15 @@ public:
     static_assert(__is_pod(T), "array is for POD types only");
   }
 
+  explicit array(T *begin, T *end)
+  : array()
+  {
+    const size_t cap = end - begin;
+    resize(cap);
+
+    memcpy(m_begin, begin, sizeof(T) * cap);
+  }
+
   template<typename ...Args>
   array(const Args &...args)
   : m_stack_data{args...}
@@ -88,7 +97,13 @@ public:
   void
   reserve(const size_t new_size)
   {
-    const size_t curr_size = m_end - m_begin;
+    const size_t curr_size = size();
+    const size_t curr_cap = capacity();
+
+    if(new_size < curr_cap)
+    {
+      return;
+    }
 
     if(m_stack_data == m_begin)
     {
@@ -108,7 +123,8 @@ public:
   resize(const size_t new_size)
   {
     reserve(new_size);
-    m_end = m_begin + new_size;
+    const size_t curr_size = size();
+    m_end = m_begin + (new_size > curr_size ? new_size : curr_size);
   }
 
 
@@ -147,15 +163,20 @@ public:
     {
       reserve(size() << 1);
     }
-
+    
     if(i < size())
     {
       const size_t insert_index = i + 1;
       const size_t size_to_end  = size() - i;
-
+      
       memmove(m_begin + insert_index, m_begin + i, size_to_end * sizeof(T));
 
       m_begin[i] = item;
+      m_end += 1;
+    }
+    else
+    {
+      push_back(item);
     }
 
     return &m_begin[i];
