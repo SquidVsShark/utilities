@@ -183,7 +183,17 @@ public:
   }
 
 
-  // ------------------------------------------------------------- [ Erase ] --
+  // -------------------------------------------------------- [ Pop / Erase ] --
+
+
+  void
+  pop_back()
+  {
+    if(size())
+    {
+      m_end -= 1;
+    }
+  }
 
 
   void
@@ -228,8 +238,8 @@ public:
   T& front()             { return *m_begin; };
   const T& front() const { return *m_begin; };
 
-  T& back()             { return *m_end; };
-  const T& back() const { return *m_end; };
+  T& back()             { return *(m_end - 1); };
+  const T& back() const { return *(m_end - 1); };
 
   T& at(const size_t i)
   {
