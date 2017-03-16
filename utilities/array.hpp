@@ -159,26 +159,23 @@ public:
   T*
   insert(const size_t i, const T &item)
   {
-    if(m_end == m_capacity)
-    {
-      reserve(size() << 1);
-    }
+    _insert_space(i, 1);
     
-    if(i < size())
-    {
-      const size_t insert_index = i + 1;
-      const size_t size_to_end  = size() - i;
-      
-      memmove(m_begin + insert_index, m_begin + i, size_to_end * sizeof(T));
+    m_begin[i] = item;
+    m_end += 1;
+  
+    return &m_begin[i];
+  }
+  
+  
+  T*
+  insert(const size_t i, const T *start, const size_t count)
+  {
+    _insert_space(i, count);
 
-      m_begin[i] = item;
-      m_end += 1;
-    }
-    else
-    {
-      push_back(item);
-    }
-
+    memcpy(m_begin + i, start, sizeof(T) * count);
+    m_end += count;
+    
     return &m_begin[i];
   }
 
@@ -210,6 +207,23 @@ public:
       memmove(m_begin + index_to_erase, m_begin + start_index, size_to_end);
 
       m_end -= 1;
+    }
+  }
+  
+  void
+  erase(const size_t start, const size_t count)
+  {
+    const size_t curr_size = size();
+
+    if((start + count) <= curr_size)
+    {
+      const size_t index_to_erase = start;
+      const size_t start_index    = start + count;
+      const size_t size_to_end    = (sizeof(T) * curr_size) - (sizeof(T) * start);
+
+      memmove(m_begin + index_to_erase, m_begin + start_index, size_to_end);
+
+      m_end -= (count);
     }
   }
 
@@ -250,6 +264,9 @@ public:
   {
     return m_begin[i >= size() ? size() - 1 : i];
   }
+  
+  const T& top() const { return *(m_end - 1); }
+  T& top() { return *(m_end - 1); }
 
 
   // --------------------------------------------------- [ Various Getters ] --
@@ -300,8 +317,21 @@ private:
   template<typename ...Args>
   void _slow_emplace(Args &&...args)
   {
-    reserve(size() << 1);
+    reserve(capacity() << 1);
     _fast_emplace(args...);
+  }
+  
+  void _insert_space(const size_t i, const size_t count)
+  {
+    if(m_end + count > m_capacity)
+    {
+      reserve(capacity() << 1);
+    }
+    
+    const size_t insert_index = i + count;
+    const size_t size_to_end  = size() - i;
+    
+    memmove(m_begin + insert_index, m_begin + i, size_to_end * sizeof(T));
   }
 
 private:
