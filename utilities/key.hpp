@@ -59,6 +59,14 @@ linear_search(
 );
 
 
+bool
+linear_search_upper32(
+  const uint32_t id_to_find,
+  const uint64_t ids[],
+  const size_t id_count,
+  size_t *out_index = nullptr
+);
+
 size_t
 upper_bounds(
   const uint64_t id,
@@ -78,6 +86,9 @@ upper_bounds(
 
 
 #ifdef LIB_KEY_IMPL
+
+
+#include "bits.hpp"
 
 
 // ----------------------------------------------------------- [ U32 to Ptr] --
@@ -151,6 +162,30 @@ linear_search(const uint64_t id_to_find,
   for(size_t i = 0; i < id_count; ++i)
   {
     if(ids[i] == id_to_find)
+    {
+      if(out_index)
+      {
+        *out_index = i;
+      }
+
+      return true;
+    }
+  }
+
+  return false;
+}
+
+
+bool
+linear_search_upper32(
+    const uint32_t id_to_find,
+    const uint64_t ids[],
+    const size_t id_count,
+    size_t *out_index)
+{
+  for(size_t i = 0; i < id_count; ++i)
+  {
+    if(bits::upper32(ids[i]) == id_to_find)
     {
       if(out_index)
       {
