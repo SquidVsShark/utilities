@@ -71,7 +71,7 @@ is_aligned_16(const uintptr_t addr)
 // --------------------------------------------------------- [ Misc Memory ] --
 
 
-namespace lib {
+namespace LIB_NS_NAME {
 namespace align {
 
 

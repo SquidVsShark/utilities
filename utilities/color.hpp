@@ -37,33 +37,33 @@
 
 
 namespace LIB_NS_NAME {
+
+using rgba = uint32_t;
+
 namespace color {
 
 
-using color = uint32_t;
-
-
-LIB_COLOR_INLINE color        init(const uint32_t hex_components = 0xC1C2C3C4);
-LIB_COLOR_INLINE color        init(const uint8_t c1,
+LIB_COLOR_INLINE rgba         init(const uint32_t hex_components = 0xC1C2C3C4);
+LIB_COLOR_INLINE rgba         init(const uint8_t c1,
                                     const uint8_t c2,
                                     const uint8_t c3,
                                     const uint8_t c4);
-LIB_COLOR_INLINE color        init(const float c1,
+LIB_COLOR_INLINE rgba         init(const float c1,
                                     const float c2,
                                     const float c3,
                                     const float c4);
-LIB_COLOR_INLINE color        init(const float channels[4]);
-LIB_COLOR_INLINE color        init(const uint8_t channels[4]);
+LIB_COLOR_INLINE rgba         init(const float channels[4]);
+LIB_COLOR_INLINE rgba         init(const uint8_t channels[4]);
 
-LIB_COLOR_INLINE uint8_t      get_channel_1i(const color get_channel);
-LIB_COLOR_INLINE uint8_t      get_channel_2i(const color get_channel);
-LIB_COLOR_INLINE uint8_t      get_channel_3i(const color get_channel);
-LIB_COLOR_INLINE uint8_t      get_channel_4i(const color get_channel);
+LIB_COLOR_INLINE uint8_t      get_channel_1i(const rgba get_channel);
+LIB_COLOR_INLINE uint8_t      get_channel_2i(const rgba get_channel);
+LIB_COLOR_INLINE uint8_t      get_channel_3i(const rgba get_channel);
+LIB_COLOR_INLINE uint8_t      get_channel_4i(const rgba get_channel);
 
-LIB_COLOR_INLINE float        get_channel_1f(const color get_channel);
-LIB_COLOR_INLINE float        get_channel_2f(const color get_channel);
-LIB_COLOR_INLINE float        get_channel_3f(const color get_channel);
-LIB_COLOR_INLINE float        get_channel_4f(const color get_channel);
+LIB_COLOR_INLINE float        get_channel_1f(const rgba get_channel);
+LIB_COLOR_INLINE float        get_channel_2f(const rgba get_channel);
+LIB_COLOR_INLINE float        get_channel_3f(const rgba get_channel);
+LIB_COLOR_INLINE float        get_channel_4f(const rgba get_channel);
 
 
 } // ns
@@ -92,18 +92,18 @@ to_float(const uint8_t c) {
 } // anon ns
 
 
-color
+rgba
 init(const uint32_t hex_components)
 {
-  color c = hex_components;
+  rgba c = hex_components;
   return c;
 }
 
 
-color
+rgba
 init(const uint8_t c1, const uint8_t c2, const uint8_t c3, const uint8_t c4)
 {
-  const color combined_channels(
+  const rgba combined_channels(
     (uint32_t)((c1 << 24) | (c2 << 16) | (c3 << 8) | (c4 << 0))
   );
 
@@ -111,7 +111,7 @@ init(const uint8_t c1, const uint8_t c2, const uint8_t c3, const uint8_t c4)
 }
 
 
-color
+rgba
 init(const float c1, const float c2, const float c3, const float c4)
 {
   return init(
@@ -123,14 +123,14 @@ init(const float c1, const float c2, const float c3, const float c4)
 }
 
 
-color
+rgba
 init(const float channels[])
 {
   return init(channels[0], channels[1], channels[2], channels[3]);
 }
 
 
-color
+rgba
 init(const uint8_t channels[])
 {
   return init(channels[0], channels[1], channels[2], channels[3]);
@@ -138,56 +138,56 @@ init(const uint8_t channels[])
 
 
 uint8_t
-get_channel_1i(const color get_channel)
+get_channel_1i(const rgba get_channel)
 {
   return static_cast<uint8_t>((get_channel >> 24) & 0xFF);
 }
 
 
 uint8_t
-get_channel_2i(const color get_channel)
+get_channel_2i(const rgba get_channel)
 {
   return static_cast<uint8_t>((get_channel >> 16) & 0xFF);
 }
 
 
 uint8_t
-get_channel_3i(const color get_channel)
+get_channel_3i(const rgba get_channel)
 {
   return static_cast<uint8_t>((get_channel >> 8) & 0xFF);
 }
 
 
 uint8_t
-get_channel_4i(const color get_channel)
+get_channel_4i(const rgba get_channel)
 {
   return static_cast<uint8_t>((get_channel >> 0) & 0xFF);
 }
 
 
 float
-get_channel_1f(const color get_channel)
+get_channel_1f(const rgba get_channel)
 {
   return detail::to_float(get_channel_1i(get_channel));
 }
 
 
 float
-get_channel_2f(const color get_channel)
+get_channel_2f(const rgba get_channel)
 {
   return detail::to_float(get_channel_2i(get_channel));
 }
 
 
 float
-get_channel_3f(const color get_channel)
+get_channel_3f(const rgba get_channel)
 {
   return detail::to_float(get_channel_3i(get_channel));
 }
 
 
 float
-get_channel_4f(const color get_channel)
+get_channel_4f(const rgba get_channel)
 {
   return detail::to_float(get_channel_4i(get_channel));
 }

@@ -40,6 +40,9 @@
 #define LIB_DIRECTORY_IMPL
 #include "directory.hpp"
 
+#define LIB_ENTITY_IMPL
+#include "entity.hpp"
+
 #define LIB_FILE_IMPL
 #include "file.hpp"
 

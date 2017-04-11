@@ -40,9 +40,9 @@ struct data
   size_t            byte_count    = 0;
   size_t            bytes_used    = 0;
   size_t            byte_stride   = 1;
-  lib::malloc_fn    allocate_fn   = nullptr;
-  lib::realloc_fn   reallocate_fn = nullptr;
-  lib::free_fn      destroy_fn    = nullptr;
+  LIB_NS_NAME::malloc_fn    allocate_fn   = nullptr;
+  LIB_NS_NAME::realloc_fn   reallocate_fn = nullptr;
+  LIB_NS_NAME::free_fn      destroy_fn    = nullptr;
 };
 
 
@@ -54,9 +54,9 @@ struct data
 bool    init(data *buf,
              const size_t stride,
              const size_t init_elem_count,
-             const lib::malloc_fn alloc = malloc,
-             const lib::realloc_fn resize = realloc,
-             const lib::free_fn destroy = free);
+             const LIB_NS_NAME::malloc_fn alloc = malloc,
+             const LIB_NS_NAME::realloc_fn resize = realloc,
+             const LIB_NS_NAME::free_fn destroy = free);
 void    destroy(data *buf);
 bool    empty(const data *buf);
 size_t  size(const data *buf);
@@ -100,9 +100,9 @@ bool
 init(data *buf,
      const size_t stride,
      const size_t init_elem_count,
-     const lib::malloc_fn alloc,
-     const lib::realloc_fn resize,
-     const lib::free_fn destroy)
+     const LIB_NS_NAME::malloc_fn alloc,
+     const LIB_NS_NAME::realloc_fn resize,
+     const LIB_NS_NAME::free_fn destroy)
 {
   if(buf->data != nullptr)
   {

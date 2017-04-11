@@ -66,7 +66,7 @@ memory_pool_get_chunk(memory_pool *pool,
         chunk.name           = this_header->name;
         chunk.chunk_start    = this_header->start_of_chunk;
         chunk.bytes_in_chunk = request_size;
-        chunk.chunk_16_byte_aligned_start = (void*)lib::align::get_boundry_16((uintptr_t)chunk.chunk_start);
+        chunk.chunk_16_byte_aligned_start = (void*)LIB_NS_NAME::align::get_boundry_16((uintptr_t)chunk.chunk_start);
 
         return chunk;
       }

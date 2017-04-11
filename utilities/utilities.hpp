@@ -18,6 +18,7 @@
 #include "color.hpp"
 #include "convert.hpp"
 #include "directory.hpp"
+#include "entity.hpp"
 #include "file.hpp"
 #include "helpers.hpp"
 #include "key.hpp"
