@@ -78,6 +78,39 @@ public:
     static_assert(__is_pod(T), "array is for POD types only");
   }
 
+  // ------------------------------------------------------- [ Copy / Move ] --
+
+
+  explicit array(const array &other)
+  : m_stack_data()
+  , m_begin(m_stack_data)
+  , m_end(m_begin)
+  , m_capacity(m_begin + (_init_capacity ? _init_capacity : 1))
+  {
+    _copy(other);
+  }
+  
+  
+  array&
+  operator=(const array &other)
+  {
+    _copy(other);
+    return *this;
+  }
+  
+  
+  explicit array(array &&other)
+  {
+    _move(other);
+  }
+  
+  array&
+  operator=(array &&other)
+  {
+    _move(other);
+    return *this;
+  }
+
 
   // -------------------------------------------------------- [ Destructor ] --
 
@@ -355,6 +388,35 @@ private:
     const size_t size_to_end  = size() - i;
     
     memmove(m_begin + insert_index, m_begin + i, size_to_end * sizeof(T));
+  }
+  
+  void _copy(const array &other)
+  {
+    if(other.size() <= capacity())
+    {
+      memcpy(m_stack_data, other.m_begin, sizeof(T) * other.size());
+    }
+    else
+    {
+      resize(other.size());
+      memcpy(m_begin, other.m_begin, sizeof(T) * other.size());
+    }
+  }
+  
+  void _move(array &other)
+  {
+    if(other.size() <= capacity())
+    {
+      memcpy(m_stack_data, other.m_begin, sizeof(T) * other.size());
+    }
+    else
+    {
+      m_begin = other.m_begin;
+      m_end = other.m_end;
+      
+      other.m_begin = other.m_stack_data;
+      other.m_end = other.m_begin;
+    }
   }
 
 private:
