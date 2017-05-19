@@ -58,6 +58,9 @@
 #define LIB_MEMORY_POOL_IMPL
 #include "memory_pool.hpp"
 
+#define LIB_MODEL_IMPL
+#include "model.hpp"
+
 #define LIB_NYAML_IMPL
 #include "nyaml.hpp"
 

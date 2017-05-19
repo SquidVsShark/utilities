@@ -24,6 +24,7 @@
 #include "key.hpp"
 #include "logging.hpp"
 #include "memory_pool.hpp"
+#include "model.hpp"
 #include "number.hpp"
 #include "nyaml.hpp"
 #include "optimizations.hpp"
