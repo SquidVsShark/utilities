@@ -12,6 +12,19 @@
 #include <stdint.h>
 #include <cstring> // needed for 'LOGGING_FILE_NAME' macro
 
+// ------------------------------------------------------- [ Logging Config ] --
+
+
+// Not impl yet.
+#ifndef LIB_NS_NAME
+#define LIB_NS_NAME lib
+#endif
+
+
+// ------------------------------------------------------- [ Logging Macros ] --
+
+
+
 //#define LOG_NO_TODO
 //#define LOG_NO_WARNING
 //#define LOG_NO_ERROR
