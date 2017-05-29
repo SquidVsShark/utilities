@@ -192,5 +192,26 @@ exe_path()
 #endif
 
 
+// -------------------------------------------------- [ exe_path Emscripten ] --
+
+
+#ifdef __EMSCRIPTEN__
+namespace LIB_NS_NAME {
+namespace dir {
+
+
+const char *
+exe_path()
+{
+    // Unsure what this should be
+  return "./";
+}
+
+
+} // ns
+} // ns
+#endif
+
+
 #endif // impl guard
 #endif // impl guard

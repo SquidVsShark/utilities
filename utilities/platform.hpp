@@ -9,6 +9,9 @@
 #define PLATFORM_INCLUDED_0AD3FC5D_27E8_4FE2_862B_9D854FF664EB
 
 
+#include <stddef.h>
+
+
 // ----------------------------------------------------- [ Platform Config ] --
 
 
@@ -30,6 +33,9 @@
 #define LIB_PLATFORM_WIN
 #elif defined(__MINGW32__)
 #define LIB_PLATFORM_WIN
+#elif defined(__EMSCRIPTEN__)
+#define LIB_PLATFORM_NIX
+#define LIB_PLATFORM_WEB
 #else
 #warning "cant define system"
 #endif
@@ -79,6 +85,17 @@ constexpr bool
 is_windows_platform()
 {
   #ifdef LIB_PLATFORM_WIN
+    return true;
+  #else
+    return false;
+  #endif
+}
+
+
+constexpr bool
+is_web_platform()
+{
+  #ifdef LIB_PLATFORM_WEB
     return true;
   #else
     return false;
