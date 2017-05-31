@@ -23,21 +23,34 @@
 // ----------------------------------------------------- [ Platform Macros ] --
 
 
-#ifdef __APPLE__
-#define LIB_PLATFORM_MAC
-#define LIB_PLATFORM_NIX
+#if defined(__APPLE__)
+
+  #define LIB_PLATFORM_MAC
+  #define LIB_PLATFORM_NIX
+
 #elif defined(__linux__)
-#define LIB_PLATFORM_LINUX
-#define LIB_PLATFORM_NIX
+
+  #define LIB_PLATFORM_LINUX
+  #define LIB_PLATFORM_NIX
+
 #elif defined(_WIN32)
-#define LIB_PLATFORM_WIN
+
+  #define LIB_PLATFORM_WIN
+
 #elif defined(__MINGW32__)
-#define LIB_PLATFORM_WIN
+
+  #define LIB_PLATFORM_WIN
+
 #elif defined(__EMSCRIPTEN__)
-#define LIB_PLATFORM_NIX
-#define LIB_PLATFORM_WEB
+
+  #define LIB_PLATFORM_EM
+  #define LIB_PLATFORM_WEB
+  #define LIB_PLATFORM_NIX
+
 #else
-#warning "cant define system"
+
+  #warning "Cant define system"
+
 #endif
 
 
@@ -96,6 +109,17 @@ constexpr bool
 is_web_platform()
 {
   #ifdef LIB_PLATFORM_WEB
+    return true;
+  #else
+    return false;
+  #endif
+}
+
+
+constexpr bool
+is_emscripten_platform()
+{
+  #ifdef LIB_PLATFORM_EM
     return true;
   #else
     return false;
