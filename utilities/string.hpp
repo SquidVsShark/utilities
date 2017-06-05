@@ -37,7 +37,8 @@ namespace string {
 inline void
 filename_from_path(const char *path,
                    char *out_filename,
-                   const size_t max_output = 256)
+                   const size_t max_output = 256,
+                   const bool remove_extension = false)
 {
   const size_t path_length = strlen(path);
   size_t last_slash = 0;
@@ -50,9 +51,25 @@ filename_from_path(const char *path,
     }
   }
 
+  size_t end = path_length;
+
+  if(remove_extension)
+  {
+    for(size_t c = path_length; c > 0; --c)
+    {
+      char i = path[c];
+    
+      if(i == '.')
+      {
+        end = c;
+        break;
+      }
+    }
+  }
+
   if(last_slash)
   {
-    const size_t to_end_of_string = (path_length - last_slash - 1);
+    const size_t to_end_of_string = (end - last_slash - 1);
     const size_t length_to_copy = to_end_of_string > max_output ? max_output : to_end_of_string;
 
     memcpy(out_filename, &path[last_slash + 1], length_to_copy);
